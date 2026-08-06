@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif;
+    --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+    --header-height: 4rem;
+  }
+
+  * {
+    @apply border-ink-200;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* Anchor targets clear the sticky header instead of hiding under it. */
+    scroll-padding-top: calc(var(--header-height) + 1.5rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-white text-ink-800 antialiased;
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-ink-900;
+    text-wrap: balance;
+  }
+
+  :where(h2, h3, h4)[id] {
+    scroll-margin-top: calc(var(--header-height) + 1.5rem);
+  }
+
+  a {
+    @apply underline-offset-2;
+  }
+
+  /* Consistent, visible focus for keyboard users across every interactive element. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-white;
+    border-radius: 0.25rem;
+  }
+
+  ::selection {
+    @apply bg-brand-100 text-brand-900;
+  }
+}
+
+@layer components {
+  /* ---------------------------------------------------------------------------
+     Article typography. Written by hand rather than pulled from a plugin so the
+     rhythm matches the rest of the design system exactly.
+     ------------------------------------------------------------------------ */
+  .prose {
+    @apply text-[1.0625rem] leading-[1.75] text-ink-700;
+  }
+
+  .prose > * + * {
+    @apply mt-6;
+  }
+
+  .prose h2 {
+    @apply mt-14 scroll-mt-28 text-[1.75rem] font-semibold leading-tight tracking-[-0.01em] text-ink-900 sm:text-[2rem];
+  }
+
+  .prose h2 + * {
+    @apply mt-4;
+  }
+
+  .prose h3 {
+    @apply mt-10 scroll-mt-28 text-xl font-semibold leading-snug text-ink-900 sm:text-[1.375rem];
+  }
+
+  .prose h3 + * {
+    @apply mt-3;
+  }
+
+  .prose h4 {
+    @apply mt-8 text-base font-semibold uppercase tracking-wide text-ink-600;
+  }
+
+  .prose p {
+    @apply text-ink-700;
+  }
+
+  .prose strong {
+    @apply font-semibold text-ink-900;
+  }
+
+  .prose em {
+    @apply italic;
+  }
+
+  .prose a {
+    @apply font-medium text-brand-700 underline decoration-brand-300 decoration-1 underline-offset-[3px] transition-colors duration-150 ease-subtle hover:text-brand-800 hover:decoration-brand-600;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply space-y-2 pl-6;
+  }
+
+  .prose ul {
+    @apply list-disc marker:text-brand-400;
+  }
+
+  .prose ol {
+    @apply list-decimal marker:font-medium marker:text-ink-400;
+  }
+
+  .prose li > ul,
+  .prose li > ol {
+    @apply mt-2;
+  }
+
+  .prose li p {
+    @apply my-0;
+  }
+
+  .prose blockquote {
+    @apply border-l-2 border-brand-500 bg-brand-50/60 py-4 pl-5 pr-4 text-ink-800;
+  }
+
+  .prose blockquote p {
+    @apply m-0 text-[1.0625rem] font-medium leading-relaxed;
+  }
+
+  .prose blockquote p + p {
+    @apply mt-3;
+  }
+
+  .prose hr {
+    @apply my-12 border-t border-ink-200;
+  }
+
+  .prose code {
+    @apply rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[0.875em] text-ink-900;
+  }
+
+  .prose pre {
+    @apply overflow-x-auto rounded-lg bg-ink-900 p-4 text-sm leading-relaxed text-ink-100;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+
+  /* Tables scroll inside their own container on narrow screens. */
+  .prose table {
+    @apply my-8 w-full border-collapse text-left text-[0.9375rem];
+    display: table;
+  }
+
+  .prose thead {
+    @apply border-b-2 border-ink-300;
+  }
+
+  .prose th {
+    @apply px-3 py-3 align-bottom font-semibold text-ink-900;
+  }
+
+  .prose td {
+    @apply border-b border-ink-200 px-3 py-3 align-top text-ink-700;
+  }
+
+  .prose tbody tr:hover {
+    @apply bg-ink-50;
+  }
+
+  .prose img {
+    @apply my-8 h-auto w-full rounded-lg border border-ink-200;
+  }
+
+  .prose figcaption {
+    @apply mt-2 text-sm text-ink-500;
+  }
+
+  .prose > table {
+    /* Wrapper added by the renderer keeps wide tables from breaking layout. */
+    @apply block max-w-full overflow-x-auto;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+  }
+
+  /* Subtle top-of-page tint used behind hero and section intros. */
+  .surface-tint {
+    background-image: radial-gradient(
+        70rem 32rem at 12% -10%,
+        rgba(29, 99, 216, 0.07),
+        transparent 60%
+      ),
+      radial-gradient(46rem 26rem at 92% 0%, rgba(29, 99, 216, 0.05), transparent 62%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
