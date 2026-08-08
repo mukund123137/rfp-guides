@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { siteConfig } from './site';
+import { displayDomain } from './site';
 
 /** Shared config for every `opengraph-image` route in the app. */
 export const ogSize = { width: 1200, height: 630 };
@@ -105,7 +105,7 @@ export function renderOgImage({ eyebrow, title, meta }: RenderOgImageInput) {
             {meta ?? 'Independent, vendor-neutral research'}
           </span>
           <span style={{ fontSize: 24, fontWeight: 600, color: '#68738a' }}>
-            {siteConfig.url.replace('https://www.', '')}
+            {displayDomain()}
           </span>
         </div>
       </div>

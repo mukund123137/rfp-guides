@@ -121,8 +121,16 @@ styles/globals.css      Tailwind layers + hand-written `.prose` typography
 | `robots.txt`, `sitemap.xml`, `rss.xml` | `app/robots.ts`, `app/sitemap.ts`, `app/rss.xml/route.ts` |
 | Semantic HTML, one `h1`, no level skips | Enforced by the component API (`headingLevel` props) |
 
-Set the production domain in `lib/site.ts` (`siteConfig.url`) — it feeds canonical
-URLs, `metadataBase`, JSON-LD, the sitemap and the feed.
+### Site origin
+
+Every absolute URL derives from one value. The production origin is
+`https://rfpsoftwareguide.com`, set as `PRODUCTION_URL` in [lib/site.ts](lib/site.ts),
+and it feeds canonical URLs, `metadataBase`, Open Graph and Twitter tags, JSON-LD,
+`sitemap.xml`, `robots.txt` and `rss.xml`.
+
+Override it per deployment with `NEXT_PUBLIC_SITE_URL` (see `.env.example`) so
+preview and staging builds emit their own origin rather than claiming production's.
+It is read at build time, so a change needs a rebuild.
 
 ## Notes
 
