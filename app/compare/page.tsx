@@ -148,9 +148,10 @@ export default function ComparePage() {
               Who builds RFP software
             </h2>
             <p className="mt-3 text-pretty text-[1.0625rem] leading-relaxed text-ink-600">
-              Grouped by what each product is built around and listed
-              alphabetically — not ranked. Work out which group fits your bottleneck
-              before you compare names inside it.
+              Eight products worth knowing, each labelled with what it is built
+              around. Work out which kind of product fits your bottleneck first —
+              that narrows the field faster than any feature comparison. Position is
+              not a quality score, and nobody pays to appear or to be removed.
             </p>
           </div>
 

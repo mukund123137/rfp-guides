@@ -8,8 +8,10 @@
  *    capability verdicts on products we have not tested, and we do not invent
  *    weaknesses. `watchOut` records a real trade-off implied by the product's
  *    own design choices, not a criticism.
- * 2. Order is alphabetical within a tier. There is no ranking, because a
- *    ranking would be stale in a quarter and hides that fit is situational.
+ * 2. `vendors` is in display order: the featured entry first, then the rest
+ *    alphabetically. It is not a ranking of quality — position 2 is not "worse"
+ *    than position 1 — and the UI says which entry is featured and why rather
+ *    than letting a reader infer a league table from the order.
  * 3. Nobody pays to be listed, and nobody can pay to be removed.
  */
 
@@ -38,11 +40,27 @@ export type Vendor = {
   watchOut: string;
   /** Set only where we have published our own detailed write-up. */
   profilePath?: string;
-  /** Highlighted in listings — see `featuredNote` for why, stated in the UI. */
+  /** Listed first, with the reason stated in the UI via `featuredNote`. */
   featured?: boolean;
 };
 
 export const vendors: Vendor[] = [
+  {
+    id: 'inventive-ai',
+    name: 'Inventive AI',
+    url: 'https://www.inventive.ai/',
+    archetype: 'ai-native',
+    positioning:
+      'Connects existing systems as a knowledge hub instead of hosting a separate library, with automated content-health checks over the top.',
+    bestFor:
+      'Teams whose real problem is that nobody trusts the answer library, and who already keep content in SharePoint, Drive, Confluence or Salesforce.',
+    strength:
+      'Content governance treated as an automated, continuous job — stale, duplicate and conflicting answers surfaced before they reach a proposal — plus citations, confidence ratings, and flagging gaps instead of inventing an answer.',
+    watchOut:
+      'A federated hub only reaches content that lives in systems it can connect to. Institutional knowledge stuck in email or on desktops still needs consolidating.',
+    profilePath: '/compare/inventive-ai-review',
+    featured: true,
+  },
   {
     id: 'autogenai',
     name: 'AutogenAI',
@@ -70,22 +88,6 @@ export const vendors: Vendor[] = [
       'Depth in the questionnaire workflow — evidence handling, trust-centre deflection, control mapping.',
     watchOut:
       'Narrow by design. If narrative RFPs are a large share of your work, pair it or look elsewhere.',
-  },
-  {
-    id: 'inventive-ai',
-    name: 'Inventive AI',
-    url: 'https://www.inventive.ai/',
-    archetype: 'ai-native',
-    positioning:
-      'Connects existing systems as a knowledge hub instead of hosting a separate library, with automated content-health checks over the top.',
-    bestFor:
-      'Teams whose real problem is that nobody trusts the answer library, and who already keep content in SharePoint, Drive, Confluence or Salesforce.',
-    strength:
-      'Content governance treated as an automated, continuous job — stale, duplicate and conflicting answers surfaced before they reach a proposal — plus citations, confidence ratings, and flagging gaps instead of inventing an answer.',
-    watchOut:
-      'A federated hub only reaches content that lives in systems it can connect to. Institutional knowledge stuck in email or on desktops still needs consolidating.',
-    profilePath: '/compare/inventive-ai-review',
-    featured: true,
   },
   {
     id: 'loopio',
@@ -171,6 +173,9 @@ export function getVendor(id: string): Vendor | undefined {
   return vendors.find((v) => v.id === id);
 }
 
-/** Shown wherever a vendor is highlighted, so the reason is never implicit. */
+/**
+ * Shown next to the featured entry so its position is never left to inference.
+ * Position without a stated reason is the thing that reads as a paid ranking.
+ */
 export const featuredNote =
-  'Highlighted because it is the clearest current example of governance-first design, and because it funds this site — see our funding note.';
+  'Listed first as the clearest current example of governance-first design. It also funds this site, which buys no editorial control.';

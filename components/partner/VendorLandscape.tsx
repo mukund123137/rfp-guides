@@ -11,11 +11,10 @@ import { cn } from '@/lib/utils';
 /**
  * The vendor landscape, as a homepage section.
  *
- * Deliberately a landscape rather than a ranking: products are grouped by what
- * they are built around, alphabetically within each group, so a reader picks a
- * shape of product before picking a name. One entry is highlighted, and the
- * reason for the highlight — including the funding relationship — is printed
- * next to it rather than left for the reader to infer.
+ * A landscape rather than a league table. Each entry is labelled with what it
+ * is built around so a reader picks a shape of product before picking a name.
+ * The featured entry leads, and the reason it leads — including the funding
+ * relationship — is printed next to it rather than left to be inferred.
  */
 export function VendorLandscape() {
   const vendors = getVendors();
@@ -44,14 +43,9 @@ export function VendorLandscape() {
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-0.5 bg-accent-400"
               />
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="rounded-full bg-brand-50 px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-eyebrow text-brand-700 ring-1 ring-inset ring-brand-100">
-                  {archetypeLabels[featured.archetype]}
-                </span>
-                <span className="rounded-full bg-accent-400/15 px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-eyebrow text-accent-600">
-                  Worth a look
-                </span>
-              </div>
+              <p className="text-[0.6875rem] uppercase tracking-eyebrow text-ink-500">
+                {archetypeLabels[featured.archetype]}
+              </p>
 
               <h3 className="mt-5 font-display text-2xl font-semibold tracking-[-0.015em] text-ink-900">
                 <Link
@@ -144,8 +138,8 @@ export function VendorLandscape() {
             </ul>
 
             <p className="mt-4 text-[0.8125rem] leading-relaxed text-ink-500">
-              Listed alphabetically within each group. Nobody pays to appear here and
-              nobody can pay to be removed. Missing someone?{' '}
+              Position is not a quality score. Nobody pays to appear here and nobody
+              can pay to be removed. Missing someone?{' '}
               <Link
                 href="/contact"
                 className="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"

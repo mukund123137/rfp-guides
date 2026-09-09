@@ -35,7 +35,7 @@ const crumbs = [
 const principles = [
   {
     title: 'Nobody can buy coverage',
-    body: 'No vendor pays to be featured, ranked or recommended here, and no vendor sees a draft before publication. There are no sponsored posts, no affiliate links and no pay-to-play directory. Our vendor listings are alphabetical within each category, and nobody can pay to be added or removed.',
+    body: 'No vendor pays to be featured or recommended here, and no vendor sees a draft before publication. There are no sponsored posts, no affiliate links and no pay-to-play directory. Where we list vendors, position is not a quality score, every entry carries a trade-off as well as a strength, and nobody can pay to be added, moved or removed.',
   },
   {
     title: 'We name the trade-off, not just the strength',
