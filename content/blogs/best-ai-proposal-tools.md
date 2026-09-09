@@ -25,6 +25,7 @@ related:
   - blogs:what-is-ai-rfp-software
   - blogs:top-rfp-software-differentiators
   - guides:how-to-find-rfp-software-vendors
+inventiveAngle: future
 ctaHeading: Run the blind test yourself
 ctaBody: The AI evaluation worksheet in our resource library has the blind-test setup, the scoring rubric for generated drafts and the vendor question list from this article.
 faq:

@@ -26,7 +26,7 @@ export const siteConfig = {
   url: resolveSiteUrl(),
   tagline: 'The Complete Resource Hub for RFP Software',
   description:
-    'Independent, vendor-neutral guides on buying, evaluating, comparing and implementing RFP software — plus templates, checklists and a working glossary.',
+    'Practitioner-written guides to buying, evaluating, comparing and implementing RFP software — plus templates, checklists and a working glossary. Published by Inventive AI; no vendor can buy placement.',
   locale: 'en_US',
   language: 'en',
   publisher: 'RFP Software Guides',
@@ -58,6 +58,11 @@ export const primaryNav: NavItem[] = [
     label: 'Guides',
     href: '/guides',
     description: 'Long-form buying and evaluation guides',
+  },
+  {
+    label: 'Compare',
+    href: '/compare',
+    description: 'Capability comparisons and product profiles',
   },
   {
     label: 'Blog',
@@ -92,6 +97,20 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     ],
   },
   {
+    title: 'Compare',
+    items: [
+      { label: 'Comparison hub', href: '/compare' },
+      {
+        label: 'How to compare RFP software',
+        href: '/compare/rfp-software-comparison-framework',
+      },
+      {
+        label: 'Inventive AI profile',
+        href: '/compare/how-inventive-ai-approaches-rfp-automation',
+      },
+    ],
+  },
+  {
     title: 'Blog',
     items: [
       {
@@ -112,7 +131,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: 'All resources', href: '/resources' },
       { label: 'Templates', href: '/resources#templates' },
       { label: 'Buying checklists', href: '/resources#checklists' },
-      { label: 'Glossary', href: '/resources#glossary' },
+      { label: 'Glossary', href: '/glossary' },
       { label: 'Compliance resources', href: '/resources#compliance' },
     ],
   },
@@ -120,8 +139,18 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: 'Site',
     items: [
       { label: 'About', href: '/about' },
-      { label: 'Editorial standards', href: '/about#editorial-standards' },
+      { label: 'Who writes here', href: '/authors' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Publisher disclosure', href: '/about#disclosure' },
       { label: 'RSS feed', href: '/rss.xml' },
+    ],
+  },
+  {
+    title: 'Legal',
+    items: [
+      { label: 'Privacy policy', href: '/privacy' },
+      { label: 'Terms of use', href: '/terms' },
+      { label: 'Editorial standards', href: '/about#editorial-standards' },
       { label: 'Sitemap', href: '/sitemap.xml' },
     ],
   },
@@ -148,6 +177,6 @@ export function absoluteUrl(path = '/'): string {
  * file in their route segment; everything else inherits the site default.
  */
 export function ogImageUrl(path = '/'): string {
-  const hasOwnCard = /^\/(guides|blog)\/[^/]+$/.test(path);
+  const hasOwnCard = /^\/(guides|blog|compare)\/[^/]+$/.test(path);
   return absoluteUrl(hasOwnCard ? `${path}/opengraph-image` : siteConfig.ogImage);
 }

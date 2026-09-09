@@ -19,7 +19,7 @@ export function RelatedArticles({
     <section aria-labelledby="related-heading" className={cn(className)}>
       <h2
         id="related-heading"
-        className="text-2xl font-semibold tracking-[-0.015em] text-ink-900 sm:text-[1.75rem]"
+        className="font-display text-2xl font-semibold tracking-[-0.02em] text-ink-900 sm:text-[1.875rem]"
       >
         {heading}
       </h2>

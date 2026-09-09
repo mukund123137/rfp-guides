@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Article, ArticleSummary } from '@/lib/content';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
@@ -11,6 +12,10 @@ import { Faq } from './Faq';
 import { AuthorCard } from './AuthorCard';
 import { ArticleCta } from './ArticleCta';
 import { RelatedArticles } from './RelatedArticles';
+import {
+  InventiveCallout,
+  isInventiveAngle,
+} from '@/components/partner/InventiveCallout';
 import {
   articleSchema,
   breadcrumbSchema,
@@ -61,7 +66,7 @@ export function ArticleLayout({ article, crumbs, related }: ArticleLayoutProps) 
                 </span>
               </div>
 
-              <h1 className="mt-4 text-balance text-[2.125rem] font-semibold leading-[1.12] tracking-[-0.02em] text-ink-900 sm:text-[2.75rem]">
+              <h1 className="mt-4 text-balance font-display text-[2.25rem] font-semibold leading-[1.08] tracking-[-0.025em] text-ink-900 sm:text-[3rem]">
                 {article.title}
               </h1>
 
@@ -79,9 +84,12 @@ export function ArticleLayout({ article, crumbs, related }: ArticleLayoutProps) 
                   </span>
                   <span>
                     By{' '}
-                    <span className="font-semibold text-ink-900">
+                    <Link
+                      href={`/authors/${article.author.id}`}
+                      className="font-semibold text-ink-900 underline decoration-ink-300 underline-offset-2 transition-colors duration-150 ease-subtle hover:text-brand-700 hover:decoration-brand-400"
+                    >
                       {article.author.name}
-                    </span>
+                    </Link>
                   </span>
                 </span>
 
@@ -124,7 +132,7 @@ export function ArticleLayout({ article, crumbs, related }: ArticleLayoutProps) 
 
               {/* Mobile TOC: collapsed by default so it never pushes content down. */}
               {article.toc.length > 0 ? (
-                <details className="mb-10 rounded-xl border border-ink-200 bg-ink-50/60 p-5 lg:hidden">
+                <details className="mb-10 rounded-xl border border-ink-200 bg-paper-100 p-5 lg:hidden">
                   <summary className="cursor-pointer list-none text-sm font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
                     <span className="flex items-center justify-between">
                       Table of contents
@@ -136,6 +144,11 @@ export function ArticleLayout({ article, crumbs, related }: ArticleLayoutProps) 
               ) : null}
 
               <ProseContent html={article.html} />
+
+              {/* Publisher callout, only where the article opts in via frontmatter. */}
+              {isInventiveAngle(article.inventiveAngle) ? (
+                <InventiveCallout angle={article.inventiveAngle} className="mt-14" />
+              ) : null}
 
               {article.faq.length > 0 ? (
                 <Faq items={article.faq} className="mt-16" />
@@ -169,7 +182,7 @@ export function ArticleLayout({ article, crumbs, related }: ArticleLayoutProps) 
         </Container>
 
         {related.length > 0 ? (
-          <div className="border-t border-ink-200 bg-ink-50/50 py-14">
+          <div className="border-t border-ink-200 bg-paper-100 py-14">
             <Container>
               <RelatedArticles articles={related} />
             </Container>

@@ -13,7 +13,7 @@ import GithubSlugger from 'github-slugger';
 import type { Root, Heading } from 'mdast';
 import { getAuthor, type Author } from './authors';
 
-export type Collection = 'guides' | 'blogs';
+export type Collection = 'guides' | 'blogs' | 'compare';
 
 export type TocEntry = {
   id: string;
@@ -46,6 +46,8 @@ type Frontmatter = {
   related?: string[];
   ctaHeading?: string;
   ctaBody?: string;
+  /** Opts the article into a contextual publisher callout. See InventiveCallout. */
+  inventiveAngle?: string;
 };
 
 export type Article = {
@@ -67,6 +69,7 @@ export type Article = {
   related: string[];
   ctaHeading?: string;
   ctaBody?: string;
+  inventiveAngle?: string;
   html: string;
   toc: TocEntry[];
   wordCount: number;
@@ -80,11 +83,13 @@ const CONTENT_ROOT = path.join(process.cwd(), 'content');
 const COLLECTION_BASE_PATH: Record<Collection, string> = {
   guides: '/guides',
   blogs: '/blog',
+  compare: '/compare',
 };
 
 export const COLLECTION_LABEL: Record<Collection, string> = {
   guides: 'Guide',
   blogs: 'Article',
+  compare: 'Comparison',
 };
 
 function collectionDir(collection: Collection): string {
@@ -197,6 +202,7 @@ function parseArticle(collection: Collection, filename: string): Article {
     related: fm.related ?? [],
     ctaHeading: fm.ctaHeading,
     ctaBody: fm.ctaBody,
+    inventiveAngle: fm.inventiveAngle,
     html,
     toc,
     wordCount,
@@ -246,11 +252,20 @@ export function getSummaries(collection: Collection): ArticleSummary[] {
   return getArticles(collection).map(toSummary);
 }
 
-/** Newest-first across both collections — used by the homepage and RSS feed. */
+/** Newest-first across every collection — used by the homepage and RSS feed. */
 export function getAllArticles(): Article[] {
-  return [...getArticles('guides'), ...getArticles('blogs')].sort((a, b) =>
-    b.publishedAt.localeCompare(a.publishedAt),
-  );
+  return [
+    ...getArticles('guides'),
+    ...getArticles('blogs'),
+    ...getArticles('compare'),
+  ].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
+/** Every article credited to one author, newest first. */
+export function getArticlesByAuthor(authorId: string): ArticleSummary[] {
+  return getAllArticles()
+    .filter((article) => article.author.id === authorId)
+    .map(toSummary);
 }
 
 /**

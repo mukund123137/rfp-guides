@@ -10,11 +10,12 @@ import { ArticleGrid } from '@/components/content/ArticleGrid';
 import { Hero } from '@/components/home/Hero';
 import { NewsletterSection } from '@/components/home/NewsletterSection';
 import { ResourceCategoryCards } from '@/components/resources/ResourceCategoryCards';
+import { InventiveSpotlight } from '@/components/partner/InventiveSpotlight';
 
 export const metadata: Metadata = buildMetadata({
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
   description:
-    'Learn how to buy, evaluate, compare and implement RFP software. Vendor-neutral guides, market analysis, templates and checklists for proposal and procurement teams.',
+    'Learn how to buy, evaluate, compare and implement RFP software. Practitioner guides, capability comparisons, templates and checklists for proposal and procurement teams. No paid placement.',
   path: '/',
   keywords: [
     'RFP software',
@@ -23,12 +24,14 @@ export const metadata: Metadata = buildMetadata({
     'RFP response software',
     'RFP automation',
     'how to buy RFP software',
+    'compare RFP software',
   ],
 });
 
 export default function HomePage() {
   const guides = getSummaries('guides');
   const posts = getSummaries('blogs');
+  const comparisons = getSummaries('compare');
 
   const featuredGuides = guides.slice(0, 4);
   const latestPosts = posts.slice(0, 4);
@@ -78,10 +81,34 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/* --------------------------------------------------------- Comparisons */}
+      {comparisons.length > 0 ? (
+        <section
+          aria-labelledby="home-compare"
+          className="border-t border-ink-200 bg-paper-100 py-16 sm:py-20"
+        >
+          <Container>
+            <SectionHeading
+              titleId="home-compare"
+              eyebrow="Compare"
+              title="Comparisons that hold up"
+              description="Every product in this category ships the same feature list, so feature grids return a tie. These work from architecture and failure behaviour instead."
+              link={{ href: '/compare', label: 'Comparison hub' }}
+            />
+            <ArticleGrid
+              articles={comparisons}
+              columns={2}
+              variant="featured"
+              className="mt-10"
+            />
+          </Container>
+        </section>
+      ) : null}
+
       {/* ---------------------------------------------------------- Latest blogs */}
       <section
         aria-labelledby="latest-articles"
-        className="border-t border-ink-200 bg-ink-50/50 py-16 sm:py-20"
+        className="border-t border-ink-200 py-16 sm:py-20"
       >
         <Container>
           <SectionHeading
@@ -108,6 +135,8 @@ export default function HomePage() {
           <ResourceCategoryCards className="mt-10" />
         </Container>
       </section>
+
+      <InventiveSpotlight />
 
       <NewsletterSection />
     </>

@@ -1,4 +1,5 @@
 import { absoluteUrl, ogImageUrl, siteConfig } from './site';
+import { partner } from './partner';
 import type { Article } from './content';
 
 /**
@@ -27,6 +28,14 @@ export function organizationSchema(): JsonLdObject {
       height: 512,
     },
     email: siteConfig.contactEmail,
+    /* The publisher relationship, stated in structured data as well as in the
+       visible disclosure — search engines should see the same affiliation a
+       reader does. */
+    parentOrganization: {
+      '@type': 'Organization',
+      name: partner.name,
+      url: partner.url,
+    },
     knowsAbout: [
       'RFP software',
       'Proposal management software',
@@ -75,7 +84,14 @@ export function breadcrumbSchema(crumbs: BreadcrumbCrumb[]): JsonLdObject {
 export function articleSchema(article: Article): JsonLdObject {
   const url = absoluteUrl(article.url);
   return {
-    '@type': article.collection === 'guides' ? 'TechArticle' : 'BlogPosting',
+    /* Guides are instructional, comparisons are analysis, blog posts are posts.
+       Typing a publisher profile as a Review would misrepresent it. */
+    '@type':
+      article.collection === 'guides'
+        ? 'TechArticle'
+        : article.collection === 'compare'
+          ? 'Article'
+          : 'BlogPosting',
     '@id': `${url}#article`,
     headline: article.title,
     name: article.title,

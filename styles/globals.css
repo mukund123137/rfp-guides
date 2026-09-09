@@ -6,8 +6,15 @@
   :root {
     --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
       'Helvetica Neue', Arial, sans-serif;
-    --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
-    --header-height: 4rem;
+    /* Editorial display stack. Deliberately webfont-free: the site ships zero
+       font requests, so there is no FOUT, no layout shift and nothing blocking
+       first paint. The high-quality serifs first in the list are present on
+       macOS/iOS; everything else lands on Georgia, which is near-universal. */
+    --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Palladio,
+      'URW Palladio L', 'Book Antiqua', Baskerville, Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+      monospace;
+    --header-height: 4.25rem;
   }
 
   * {
@@ -34,7 +41,7 @@
   }
 
   body {
-    @apply bg-white text-ink-800 antialiased;
+    @apply bg-paper text-ink-800 antialiased;
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
   }
@@ -49,6 +56,14 @@
     text-wrap: balance;
   }
 
+  /* Headlines carry the display serif; UI chrome stays in the sans. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
   :where(h2, h3, h4)[id] {
     scroll-margin-top: calc(var(--header-height) + 1.5rem);
   }
@@ -59,7 +74,7 @@
 
   /* Consistent, visible focus for keyboard users across every interactive element. */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-paper;
     border-radius: 0.25rem;
   }
 
@@ -82,7 +97,7 @@
   }
 
   .prose h2 {
-    @apply mt-14 scroll-mt-28 text-[1.75rem] font-semibold leading-tight tracking-[-0.01em] text-ink-900 sm:text-[2rem];
+    @apply mt-14 scroll-mt-28 font-display text-[1.8125rem] font-semibold leading-[1.2] tracking-[-0.012em] text-ink-900 sm:text-[2.0625rem];
   }
 
   .prose h2 + * {
@@ -90,7 +105,7 @@
   }
 
   .prose h3 {
-    @apply mt-10 scroll-mt-28 text-xl font-semibold leading-snug text-ink-900 sm:text-[1.375rem];
+    @apply mt-10 scroll-mt-28 font-display text-xl font-semibold leading-snug text-ink-900 sm:text-[1.4375rem];
   }
 
   .prose h3 + * {
@@ -98,7 +113,7 @@
   }
 
   .prose h4 {
-    @apply mt-8 text-base font-semibold uppercase tracking-wide text-ink-600;
+    @apply mt-8 text-sm font-semibold uppercase tracking-eyebrow text-ink-500;
   }
 
   .prose p {
@@ -140,11 +155,12 @@
   }
 
   .prose blockquote {
-    @apply border-l-2 border-brand-500 bg-brand-50/60 py-4 pl-5 pr-4 text-ink-800;
+    @apply border-l-2 border-accent-400 bg-paper-100 py-4 pl-5 pr-4 text-ink-800;
   }
 
   .prose blockquote p {
-    @apply m-0 text-[1.0625rem] font-medium leading-relaxed;
+    @apply m-0 text-[1.125rem] font-medium leading-relaxed;
+    font-family: var(--font-display);
   }
 
   .prose blockquote p + p {
@@ -156,7 +172,7 @@
   }
 
   .prose code {
-    @apply rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[0.875em] text-ink-900;
+    @apply rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[0.85em] text-ink-900;
   }
 
   .prose pre {
@@ -186,7 +202,7 @@
   }
 
   .prose tbody tr:hover {
-    @apply bg-ink-50;
+    @apply bg-paper-100;
   }
 
   .prose img {
@@ -201,6 +217,33 @@
     /* Wrapper added by the renderer keeps wide tables from breaking layout. */
     @apply block max-w-full overflow-x-auto;
   }
+
+  /* ---------------------------------------------------------------------------
+     Editorial details. Small, reusable marks that give the site a publication
+     feel rather than a template feel.
+     ------------------------------------------------------------------------ */
+
+  /* Uppercase label preceded by a short rule — used above section headings. */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[0.6875rem] font-semibold uppercase tracking-eyebrow text-brand-700;
+  }
+
+  .eyebrow::before {
+    @apply h-px w-6 bg-accent-400 content-[''];
+  }
+
+  .eyebrow-muted {
+    @apply text-ink-500;
+  }
+
+  .eyebrow-muted::before {
+    @apply bg-ink-300;
+  }
+
+  /* Hairline divider with slightly more presence than a plain border. */
+  .rule-editorial {
+    @apply h-px w-full bg-gradient-to-r from-ink-300 via-ink-200 to-transparent;
+  }
 }
 
 @layer utilities {
@@ -210,12 +253,33 @@
 
   /* Subtle top-of-page tint used behind hero and section intros. */
   .surface-tint {
+    background-color: theme('colors.paper.DEFAULT');
     background-image: radial-gradient(
-        70rem 32rem at 12% -10%,
-        rgba(29, 99, 216, 0.07),
+        72rem 34rem at 10% -12%,
+        rgba(50, 67, 214, 0.08),
+        transparent 62%
+      ),
+      radial-gradient(46rem 26rem at 94% -6%, rgba(201, 150, 63, 0.09), transparent 64%);
+  }
+
+  /* Dark editorial ground for high-emphasis blocks (CTAs, spotlight). */
+  .surface-deep {
+    background-color: theme('colors.ink.900');
+    background-image: radial-gradient(
+        60rem 30rem at 88% -20%,
+        rgba(71, 98, 233, 0.30),
         transparent 60%
       ),
-      radial-gradient(46rem 26rem at 92% 0%, rgba(29, 99, 216, 0.05), transparent 62%);
+      radial-gradient(40rem 24rem at 4% 110%, rgba(201, 150, 63, 0.14), transparent 62%);
+  }
+
+  /* Fine dotted grid, used at very low opacity behind editorial sections. */
+  .surface-grid {
+    background-image: radial-gradient(
+      theme('colors.ink.300') 0.5px,
+      transparent 0.5px
+    );
+    background-size: 22px 22px;
   }
 
   .text-balance {

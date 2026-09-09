@@ -24,6 +24,7 @@ related:
   - guides:things-to-look-for-in-rfp-software
   - guides:compliance-matrix-to-select-rfp-software
   - guides:how-to-find-rfp-software-vendors
+inventiveAngle: library
 ctaHeading: Take the buying process into your next evaluation
 ctaBody: The requirement matrix, weighted scorecard and demo script referenced throughout this guide are all in the resource library — free, ungated, and formatted to copy straight into your own docs.
 faq:

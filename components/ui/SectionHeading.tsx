@@ -37,14 +37,10 @@ export function SectionHeading({
       )}
     >
       <div className={cn('max-w-2xl', centered && 'mx-auto')}>
-        {eyebrow ? (
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.08em] text-brand-600">
-            {eyebrow}
-          </p>
-        ) : null}
+        {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}
         <Tag
           id={titleId}
-          className="text-balance text-2xl font-semibold tracking-[-0.015em] sm:text-3xl"
+          className="text-balance font-display text-[1.75rem] font-semibold tracking-[-0.02em] sm:text-[2.125rem]"
         >
           {title}
         </Tag>

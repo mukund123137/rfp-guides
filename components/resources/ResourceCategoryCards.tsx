@@ -39,7 +39,7 @@ export function ResourceCategoryCards({
 
             <Heading className="mt-5 text-lg font-semibold tracking-[-0.01em] text-ink-900">
               <Link
-                href={hrefFor(category.id)}
+                href={'href' in category ? category.href : hrefFor(category.id)}
                 className={cn(
                   'transition-colors duration-150 ease-subtle group-hover:text-brand-700',
                   stretchedLink,

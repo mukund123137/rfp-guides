@@ -25,7 +25,7 @@ export function Faq({
     <section aria-labelledby={headingId} className={cn('scroll-mt-28', className)}>
       <h2
         id={headingId}
-        className="text-2xl font-semibold tracking-[-0.015em] text-ink-900 sm:text-[1.75rem]"
+        className="font-display text-2xl font-semibold tracking-[-0.02em] text-ink-900 sm:text-[1.875rem]"
       >
         {heading}
       </h2>

@@ -10,9 +10,9 @@ type HeroProps = {
 };
 
 const stats = [
-  { value: '4', label: 'In-depth buying guides' },
-  { value: '30+', label: 'Glossary definitions' },
-  { value: '100%', label: 'Vendor-neutral, no paid placement' },
+  { value: '18k+', label: 'Words of practitioner-written guidance' },
+  { value: '14', label: 'Free templates and checklists' },
+  { value: 'Zero', label: 'Paid placement — for any vendor, including ours' },
 ];
 
 export function Hero({ path }: HeroProps) {
@@ -21,12 +21,12 @@ export function Hero({ path }: HeroProps) {
       <Container className="py-16 sm:py-20 lg:py-24">
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-16">
           <div className="max-w-3xl">
-            <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-brand-700 ring-1 ring-inset ring-brand-100">
-              <Icon name="book" size={14} />
-              Independent research &amp; education
+            <p className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-eyebrow text-brand-700 shadow-sm ring-1 ring-inset ring-brand-100">
+              <Icon name="book" size={13} />
+              Practitioner research &amp; education
             </p>
 
-            <h1 className="mt-6 text-balance text-[2.5rem] font-semibold leading-[1.08] tracking-[-0.025em] text-ink-900 sm:text-5xl lg:text-[3.25rem]">
+            <h1 className="mt-6 text-balance font-display text-[2.625rem] font-semibold leading-[1.04] tracking-[-0.03em] text-ink-900 sm:text-[3.25rem] lg:text-[3.75rem]">
               The Complete Resource Hub for RFP Software
             </h1>
 
@@ -53,10 +53,7 @@ export function Hero({ path }: HeroProps) {
               aria-labelledby="reading-path-heading"
               className="mt-14 rounded-xl border border-ink-200 bg-white/80 p-6 shadow-card backdrop-blur lg:mt-0"
             >
-              <h2
-                id="reading-path-heading"
-                className="text-xs font-semibold uppercase tracking-[0.08em] text-ink-500"
-              >
+              <h2 id="reading-path-heading" className="eyebrow eyebrow-muted">
                 The buying path
               </h2>
               <ol className="mt-4 space-y-3.5">
@@ -86,7 +83,7 @@ export function Hero({ path }: HeroProps) {
             <div key={stat.label}>
               <dt className="sr-only">{stat.label}</dt>
               <dd>
-                <span className="block text-3xl font-semibold tracking-[-0.02em] text-brand-700">
+                <span className="block font-display text-[2rem] font-semibold tracking-[-0.02em] text-brand-700">
                   {stat.value}
                 </span>
                 <span className="mt-1.5 block text-[0.9375rem] text-ink-600">

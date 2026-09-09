@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Author } from '@/lib/authors';
 import { cn } from '@/lib/utils';
 
@@ -17,7 +18,7 @@ export function AuthorCard({
   return (
     <section
       aria-label={`About the author, ${author.name}`}
-      className={cn('rounded-xl border border-ink-200 bg-ink-50/60 p-6 sm:p-7', className)}
+      className={cn('rounded-xl border border-ink-200 bg-paper-100 p-6 sm:p-7', className)}
     >
       <div className="flex flex-col gap-5 sm:flex-row">
         <span
@@ -31,8 +32,13 @@ export function AuthorCard({
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-ink-500">
             Written by
           </p>
-          <Heading className="mt-1 text-lg font-semibold text-ink-900">
-            {author.name}
+          <Heading className="mt-1 font-display text-lg font-semibold text-ink-900">
+            <Link
+              href={`/authors/${author.id}`}
+              className="transition-colors duration-150 ease-subtle hover:text-brand-700"
+            >
+              {author.name}
+            </Link>
           </Heading>
           <p className="text-sm font-medium text-brand-700">{author.role}</p>
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-600">{author.bio}</p>

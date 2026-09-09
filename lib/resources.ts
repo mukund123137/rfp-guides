@@ -43,6 +43,8 @@ export const resourceCategories = [
     id: 'glossary',
     label: 'Glossary',
     title: 'Glossary',
+    /** Has a standalone page; the resources section links out to it. */
+    href: '/glossary',
     blurb:
       'Plain-language definitions for the terms that appear in nearly every RFP software conversation.',
     icon: 'book' as const,

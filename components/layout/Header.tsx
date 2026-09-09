@@ -35,9 +35,9 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
+    <header className="sticky top-0 z-50 border-b border-ink-200 bg-paper/90 backdrop-blur supports-[backdrop-filter]:bg-paper/80">
       <Container>
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex h-[4.25rem] items-center justify-between gap-4">
           <Logo />
 
           <nav aria-label="Primary" className="hidden md:block">
@@ -50,10 +50,13 @@ export function Header() {
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'rounded-lg px-3 py-2 text-[0.9375rem] font-medium transition-colors duration-150 ease-subtle',
+                        'relative px-3 py-2 text-[0.9375rem] font-medium transition-colors duration-150 ease-subtle',
+                        // Active state is a rule under the label rather than a
+                        // pill — reads as a masthead, not an app toolbar.
+                        'after:absolute after:inset-x-3 after:-bottom-px after:h-0.5 after:origin-left after:scale-x-0 after:bg-accent-400 after:transition-transform after:duration-200 after:ease-subtle after:content-[""]',
                         active
-                          ? 'text-brand-700'
-                          : 'text-ink-600 hover:bg-ink-50 hover:text-ink-900',
+                          ? 'text-ink-900 after:scale-x-100'
+                          : 'text-ink-600 hover:text-ink-900 hover:after:scale-x-100 hover:after:bg-ink-300',
                       )}
                     >
                       {item.label}
@@ -65,8 +68,8 @@ export function Header() {
           </nav>
 
           <div className="hidden md:block">
-            <ButtonLink href="/resources" size="sm" variant="secondary">
-              Free templates
+            <ButtonLink href="/compare" size="sm" variant="secondary">
+              Compare tools
             </ButtonLink>
           </div>
 

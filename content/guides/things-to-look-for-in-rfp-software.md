@@ -24,6 +24,7 @@ related:
   - guides:how-to-buy-rfp-software
   - guides:compliance-matrix-to-select-rfp-software
   - blogs:top-rfp-software-differentiators
+inventiveAngle: provenance
 ctaHeading: Score these capabilities side by side
 ctaBody: The evaluation scorecard in our resource library maps every capability in this guide to a weighted row and a demo test, so two evaluators can score the same demo and compare results that mean something.
 faq:

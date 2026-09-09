@@ -10,10 +10,13 @@ import { ArticleCta } from '@/components/content/ArticleCta';
 import { AuthorCard } from '@/components/content/AuthorCard';
 import { authors } from '@/lib/authors';
 import { absoluteUrl } from '@/lib/site';
+import { partner, partnerUrl, disclosure } from '@/lib/partner';
+import { ButtonLink } from '@/components/ui/Button';
+import { Icon } from '@/components/ui/Icon';
 
 const TITLE = 'About RFP Software Guides';
 const DESCRIPTION =
-  'Who we are, how we fund the site, and the editorial standards behind every RFP software guide we publish. No paid placement, no vendor sponsorship, no affiliate links.';
+  'Who publishes this site, how it is funded, and the editorial standards behind every RFP software guide we produce. Published by Inventive AI — no vendor, including our publisher, can buy placement.';
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -33,16 +36,20 @@ const crumbs = [
 
 const principles = [
   {
-    title: 'We take no money from vendors',
-    body: 'No sponsored posts, no paid rankings, no affiliate links, no pay-to-play vendor directory. Nothing on this site changes because a company asks it to.',
+    title: 'Nobody can buy placement — including our publisher',
+    body: 'Inventive AI publishes this site and builds software in this category. No vendor, ours included, pays to be featured, ranked or recommended, and no vendor sees a draft before publication. There are no sponsored posts, no affiliate links and no pay-to-play directory.',
+  },
+  {
+    title: 'We disclose the conflict on every page that has one',
+    body: 'Where a page mentions Inventive AI, it says who publishes it, right there — not buried in a footer. Our profile of our own product applies our published criteria to it and includes a section on where it is the wrong choice.',
   },
   {
     title: 'Every guide is written by someone who did the work',
     body: 'Our contributors have run bid desks, built proposal functions and sat through the demos. If none of us has direct experience with a topic, we interview people who do and say so in the article.',
   },
   {
-    title: 'We describe capabilities, not brands',
-    body: 'We discuss what to look for and how to test it rather than declaring a winner. Product-by-product rankings go stale in a quarter; a good evaluation method does not.',
+    title: 'We describe capabilities, not rankings',
+    body: 'We discuss what to look for and how to test it rather than declaring a winner. Product-by-product rankings go stale in a quarter, and a publisher that sells in the category has no business writing one. A good evaluation method outlives both.',
   },
   {
     title: 'We date and revisit everything',
@@ -95,12 +102,51 @@ export default function AboutPage() {
             About {siteConfig.name}
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600">
-            We publish independent education about RFP software: how to buy it, how to
-            evaluate it, and how to make it stick once it is bought. We are not a vendor,
-            a reseller, or a review marketplace.
+            We publish education about RFP software: how to buy it, how to evaluate it,
+            and how to make it stick once it is bought. This site is published by{' '}
+            {partner.name}, which builds software in the category — so the first thing
+            below is how we keep that from shaping what you read.
           </p>
         </Container>
       </div>
+
+      {/* -------------------------------------------------------- Disclosure */}
+      <section
+        id="disclosure"
+        aria-labelledby="disclosure-heading"
+        className="scroll-mt-28 border-b border-ink-200 bg-paper-100"
+      >
+        <Container className="py-12 sm:py-14">
+          <div className="max-w-3xl">
+            <p className="eyebrow eyebrow-muted">Publisher disclosure</p>
+            <h2
+              id="disclosure-heading"
+              className="mt-4 text-balance font-display text-2xl font-semibold tracking-[-0.015em] text-ink-900 sm:text-[1.875rem]"
+            >
+              Who publishes this, and what that changes
+            </h2>
+            <p className="mt-4 text-pretty text-[1.0625rem] leading-relaxed text-ink-700">
+              {disclosure.long}
+            </p>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href={partner.profilePath} variant="secondary">
+                Read our profile of our own product
+                <Icon name="arrow-right" size={17} />
+              </ButtonLink>
+              <ButtonLink
+                href={partnerUrl('about-disclosure')}
+                external
+                variant="ghost"
+                ariaLabel={`Explore ${partner.name} (opens in a new tab)`}
+              >
+                Explore {partner.name}
+                <Icon name="arrow-up-right" size={16} />
+              </ButtonLink>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       <Container className="py-14 sm:py-16">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16">
@@ -208,17 +254,24 @@ export default function AboutPage() {
               </h2>
               <div className="prose mt-5">
                 <p>
-                  The site is funded by its publisher as an independent education project,
-                  plus reader-supported work: advisory sessions with buying teams who want
-                  a second pair of eyes on a scorecard, and workshop material licensed to
-                  professional associations for training.
+                  This site is funded by <strong>{partner.name}</strong>, which builds AI
+                  response software for RFPs and security questionnaires. There is no
+                  advertising, no sponsorship and no affiliate revenue. The commercial
+                  logic is straightforward and worth stating plainly: we publish useful,
+                  vendor-neutral education, some readers who need software eventually look
+                  at ours, and most do not. That is the whole arrangement.
                 </p>
                 <p>
-                  Neither of those revenue lines gives anyone editorial input. Vendors
-                  cannot buy placement, cannot review drafts before publication, and are
-                  not told in advance when a page that mentions their category is being
-                  updated. If that ever changes, it will be disclosed here first and on
-                  every affected page.
+                  What the funding does not buy is editorial control. Our evaluation
+                  criteria are written before any product is considered against them, we
+                  publish no vendor rankings, no vendor — including our publisher — sees a
+                  draft before publication, and no vendor pays to be featured. Where we do
+                  write about Inventive AI, we label it, apply our own criteria in public,
+                  and say what you should still test yourself.
+                </p>
+                <p>
+                  If this ever changes — paid placement, sponsored content, an affiliate
+                  arrangement — it will be disclosed here first and on every affected page.
                 </p>
               </div>
             </section>
@@ -267,8 +320,25 @@ export default function AboutPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-ink-900">Vendor relationships</dt>
-                  <dd className="mt-0.5 text-ink-600">None. No sponsorship, affiliate or referral income.</dd>
+                  <dt className="font-semibold text-ink-900">Publisher</dt>
+                  <dd className="mt-0.5 text-ink-600">
+                    <a
+                      href={partnerUrl('about-sidebar')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+                    >
+                      {partner.name}
+                    </a>{' '}
+                    — AI response software for RFPs and security questionnaires
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-ink-900">Paid placement</dt>
+                  <dd className="mt-0.5 text-ink-600">
+                    None available to any vendor, including our publisher. No advertising,
+                    sponsorship or affiliate income.
+                  </dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-ink-900">Contact</dt>

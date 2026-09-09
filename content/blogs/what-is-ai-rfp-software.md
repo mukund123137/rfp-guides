@@ -25,6 +25,7 @@ related:
   - blogs:best-ai-proposal-tools
   - blogs:future-of-ai-in-rfp-responses
   - guides:things-to-look-for-in-rfp-software
+inventiveAngle: provenance
 ctaHeading: Test AI claims with your own content
 ctaBody: The demo script in our resource library includes the AI-specific tests from this article — vocabulary mismatch, contradictory sources and the no-answer case — ready to send to vendors.
 faq:
