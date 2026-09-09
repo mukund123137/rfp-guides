@@ -55,7 +55,7 @@ faq:                                    # renders the FAQ block *and* FAQPage sc
     answer: ...
 ctaHeading: ...                         # overrides the end-of-article CTA
 ctaBody: ...
-inventiveAngle: provenance              # optional; renders a publisher callout
+toolNote: provenance                    # optional; renders an in-article tool note
 ---
 ```
 
@@ -86,43 +86,51 @@ Resource entries are frontmatter-only (`category` must be one of the ids in
 `lib/resources.ts`). The glossary lives in `content/resources/99-glossary.md` as a
 `terms:` array, and is rendered as a definition list plus `DefinedTermSet` schema.
 
-## Publisher disclosure and Inventive AI placements
+## Vendor coverage and the funding relationship
 
-This site is published by Inventive AI, which sells in the category the site
-writes about. That is a real conflict of interest, and the code treats it as one.
+The site is positioned and written as an independent RFP software resource.
+Inventive AI is **not** presented as its author, owner or editorial voice — it
+appears as one vendor among eight in `lib/vendors.ts`, and the editorial voice
+throughout is the site's own.
 
-**Everything about the relationship lives in [lib/partner.ts](lib/partner.ts)** —
-the name, links, verified capability claims, vendor-reported metrics and the
-disclosure wording. Nothing about Inventive AI is hard-coded in a component, so
-the disclosure reads identically everywhere and cannot drift page to page.
+Inventive AI does fund the site, and that is disclosed. The disclosure is
+deliberately quiet — one line of small text under a recommendation, and a
+`#funding` section on the About page — but it is **not optional**. Recommending a
+product that funds you without saying so is a deceptive endorsement under the
+FTC's endorsement guides (16 CFR 255), and it is the fastest way to destroy the
+credibility the site depends on. Keep it short; keep it present.
 
-Rules the implementation follows:
+### Rules the implementation follows
 
-- **Every placement carries a disclosure.** `<Disclosure />` sits beneath each
-  one and links to `/about#disclosure`. A placement without it is a bug.
-- **Only verifiable claims.** `lib/partner.ts` holds claims sourced from
-  Inventive AI's own published material. Vendor-reported figures are labelled as
-  vendor-reported wherever they render.
-- **Criteria first, product second.** The homepage spotlight and the profile page
-  both state an evaluation test from our guides *before* saying what the product
-  does about it. The criteria were written before the placements existed.
-- **No fabricated competitor claims.** `CapabilityMatrix` compares product
-  *archetypes*, never named competitors, because we have not tested them.
-- **Outbound links are attributed.** `partnerUrl(placement)` adds UTM parameters
-  so referred traffic is traceable to the exact placement it came from.
+- **`lib/vendors.ts` is the vendor landscape.** Grouped by archetype,
+  alphabetical within each group, explicitly unranked. Every entry carries a
+  `watchOut` — a listing with only strengths is an advertisement with extra steps.
+- **No invented claims about anyone.** Entries describe positioning and typical
+  fit, which are publicly stated and checkable in a demo. We do not publish
+  capability verdicts on products we have not tested. Same rule for Inventive AI.
+- **Highlighting states its reason.** `featuredNote` renders next to the featured
+  vendor and names the funding relationship inline — never left to be inferred.
+- **Outbound vendor links carry `nofollow`.** Inventive AI links carry UTM
+  parameters via `partnerUrl(placement)` so referred traffic is attributable.
+- **`lib/partner.ts` holds only the funding relationship and disclosure wording.**
+  Product claims live in `lib/vendors.ts` with everyone else's.
 
-Placements: homepage spotlight, `/compare` hub, the publisher profile, an opt-in
-in-article callout (`inventiveAngle` frontmatter), the About disclosure section,
-and two footer links. Guides, the blog index and the resource library carry no
-product placement beyond the global footer.
+### Where Inventive AI appears
 
-### Adding or changing a placement
+Homepage vendor landscape (featured, with reason stated), the `/compare`
+directory, `/compare/best-rfp-software`, its own review at
+`/compare/inventive-ai-review`, opt-in in-article tool notes (`toolNote`
+frontmatter), and the footer funding line. Guides, the blog index, resources and
+the glossary carry no vendor placement at all.
 
-Add the angle to `inventiveAngles` in
-[components/partner/InventiveCallout.tsx](components/partner/InventiveCallout.tsx),
-then set `inventiveAngle:` in the frontmatter of articles where it is genuinely
-relevant. Do not add one to an article whose argument it does not follow — the
-value of the placement depends on it not reading as an advert.
+### Adding a tool note
+
+Add the note to `toolNotes` in
+[components/partner/ToolNote.tsx](components/partner/ToolNote.tsx), then set
+`toolNote:` in the frontmatter of articles where naming products is genuinely the
+most useful next sentence. Notes that name Inventive AI must set
+`mentionsPartner: true` so the funding line renders. Do not add a note to an
+article whose argument it does not continue.
 
 ## Design system
 
@@ -145,7 +153,7 @@ components/
   content/              Article template and its parts (TOC, FAQ, author, CTA…)
   home/                 Homepage sections
   layout/               Header, Footer, Logo, social links
-  partner/              Inventive AI placements + the shared Disclosure
+  partner/              Vendor landscape, tool notes, funding disclosure
   resources/            Resource cards, list, glossary
   seo/                  JsonLd
   ui/                   Button, Card, Badge, Icon, Container, NewsletterForm…
@@ -156,7 +164,8 @@ lib/
   seo.ts                Metadata builder (canonical, OG, Twitter)
   schema.ts             JSON-LD builders
   site.ts               Site config, navigation, URL helpers
-  partner.ts            Inventive AI relationship, claims and disclosure text
+  partner.ts            Funding relationship and disclosure wording
+  vendors.ts            The vendor landscape (8 products, unranked)
   authors.ts            Author records referenced from frontmatter
   og.tsx                Shared social-card renderer
 styles/globals.css      Tailwind layers + hand-written `.prose` typography

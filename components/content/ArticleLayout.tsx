@@ -12,10 +12,7 @@ import { Faq } from './Faq';
 import { AuthorCard } from './AuthorCard';
 import { ArticleCta } from './ArticleCta';
 import { RelatedArticles } from './RelatedArticles';
-import {
-  InventiveCallout,
-  isInventiveAngle,
-} from '@/components/partner/InventiveCallout';
+import { ToolNote, isToolNote } from '@/components/partner/ToolNote';
 import {
   articleSchema,
   breadcrumbSchema,
@@ -145,9 +142,9 @@ export function ArticleLayout({ article, crumbs, related }: ArticleLayoutProps) 
 
               <ProseContent html={article.html} />
 
-              {/* Publisher callout, only where the article opts in via frontmatter. */}
-              {isInventiveAngle(article.inventiveAngle) ? (
-                <InventiveCallout angle={article.inventiveAngle} className="mt-14" />
+              {/* Tool note, only where the article opts in via frontmatter. */}
+              {isToolNote(article.toolNote) ? (
+                <ToolNote note={article.toolNote} className="mt-14" />
               ) : null}
 
               {article.faq.length > 0 ? (

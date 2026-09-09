@@ -29,7 +29,7 @@ const sections = [
   { id: 'using-materials', title: 'Using our templates and content' },
   { id: 'attribution', title: 'Republishing and attribution' },
   { id: 'accuracy', title: 'Accuracy and corrections' },
-  { id: 'publisher', title: 'Our publisher relationship' },
+  { id: 'funding', title: 'How this site is funded' },
   { id: 'liability', title: 'Liability' },
   { id: 'contact-terms', title: 'Contact' },
 ];
@@ -114,13 +114,13 @@ export default function TermsPage() {
           correct factual errors in place and note the change where it alters a conclusion.
         </p>
 
-        <h2 id="publisher">Our publisher relationship</h2>
+        <h2 id="funding">How this site is funded</h2>
         <p>
-          This site is published by {partner.name}, which sells software in the category we
-          write about. We disclose that on every page that mentions them. No vendor,
-          including our publisher, pays for placement or reviews drafts before publication,
-          and we publish no vendor rankings. The full statement is on our{' '}
-          <Link href="/about#disclosure">disclosure page</Link>.
+          This site is funded by {partner.name}, one of the vendors in the category we
+          cover. That funding does not buy editorial control: {partner.name} does not
+          commission our articles, see drafts before publication or approve conclusions.
+          No vendor pays for placement, and we publish no vendor rankings. The fuller
+          note is on our <Link href="/about#funding">about page</Link>.
         </p>
 
         <h2 id="liability">Liability</h2>

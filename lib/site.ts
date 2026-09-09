@@ -26,7 +26,7 @@ export const siteConfig = {
   url: resolveSiteUrl(),
   tagline: 'The Complete Resource Hub for RFP Software',
   description:
-    'Practitioner-written guides to buying, evaluating, comparing and implementing RFP software — plus templates, checklists and a working glossary. Published by Inventive AI; no vendor can buy placement.',
+    'Independent guidance on RFP software — how to buy it, how the products differ, and which tools fit which teams. Practitioner-written guides, vendor comparisons, templates and a working glossary.',
   locale: 'en_US',
   language: 'en',
   publisher: 'RFP Software Guides',
@@ -104,10 +104,8 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
         label: 'How to compare RFP software',
         href: '/compare/rfp-software-comparison-framework',
       },
-      {
-        label: 'Inventive AI profile',
-        href: '/compare/how-inventive-ai-approaches-rfp-automation',
-      },
+      { label: 'Best RFP software', href: '/compare/best-rfp-software' },
+      { label: 'Inventive AI review', href: '/compare/inventive-ai-review' },
     ],
   },
   {
@@ -141,7 +139,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: 'About', href: '/about' },
       { label: 'Who writes here', href: '/authors' },
       { label: 'Contact', href: '/contact' },
-      { label: 'Publisher disclosure', href: '/about#disclosure' },
+      { label: 'How we are funded', href: '/about#funding' },
       { label: 'RSS feed', href: '/rss.xml' },
     ],
   },

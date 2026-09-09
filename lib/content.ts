@@ -46,8 +46,8 @@ type Frontmatter = {
   related?: string[];
   ctaHeading?: string;
   ctaBody?: string;
-  /** Opts the article into a contextual publisher callout. See InventiveCallout. */
-  inventiveAngle?: string;
+  /** Opts the article into a contextual tool note. See ToolNote. */
+  toolNote?: string;
 };
 
 export type Article = {
@@ -69,7 +69,7 @@ export type Article = {
   related: string[];
   ctaHeading?: string;
   ctaBody?: string;
-  inventiveAngle?: string;
+  toolNote?: string;
   html: string;
   toc: TocEntry[];
   wordCount: number;
@@ -202,7 +202,7 @@ function parseArticle(collection: Collection, filename: string): Article {
     related: fm.related ?? [],
     ctaHeading: fm.ctaHeading,
     ctaBody: fm.ctaBody,
-    inventiveAngle: fm.inventiveAngle,
+    toolNote: fm.toolNote,
     html,
     toc,
     wordCount,

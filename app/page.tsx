@@ -10,7 +10,7 @@ import { ArticleGrid } from '@/components/content/ArticleGrid';
 import { Hero } from '@/components/home/Hero';
 import { NewsletterSection } from '@/components/home/NewsletterSection';
 import { ResourceCategoryCards } from '@/components/resources/ResourceCategoryCards';
-import { InventiveSpotlight } from '@/components/partner/InventiveSpotlight';
+import { VendorLandscape } from '@/components/partner/VendorLandscape';
 
 export const metadata: Metadata = buildMetadata({
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
@@ -85,7 +85,7 @@ export default function HomePage() {
       {comparisons.length > 0 ? (
         <section
           aria-labelledby="home-compare"
-          className="border-t border-ink-200 bg-paper-100 py-16 sm:py-20"
+          className="border-t border-ink-200 py-16 sm:py-20"
         >
           <Container>
             <SectionHeading
@@ -104,6 +104,8 @@ export default function HomePage() {
           </Container>
         </section>
       ) : null}
+
+      <VendorLandscape />
 
       {/* ---------------------------------------------------------- Latest blogs */}
       <section
@@ -136,7 +138,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <InventiveSpotlight />
 
       <NewsletterSection />
     </>

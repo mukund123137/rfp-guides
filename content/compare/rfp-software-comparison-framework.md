@@ -30,10 +30,10 @@ takeaways:
       conflicting sources, and vocabulary mismatch.
   - Normalise for implementation scope before you compare price.
 related:
-  - compare:how-inventive-ai-approaches-rfp-automation
+  - compare:inventive-ai-review
   - guides:things-to-look-for-in-rfp-software
   - guides:compliance-matrix-to-select-rfp-software
-inventiveAngle: provenance
+toolNote: provenance
 ctaHeading: Take the comparison into a real evaluation
 ctaBody: >-
   The scorecard, demo script and screening questionnaire in our resource library
@@ -210,4 +210,4 @@ You should end with a sentence a skeptical CFO would accept: *we chose this prod
 
 If the honest version of that sentence is "one demo felt smoother than the others," the comparison did not do its job — and it is much cheaper to notice that now than at renewal.
 
-For the capability detail behind each row, [what to look for in RFP software](/guides/things-to-look-for-in-rfp-software) works through every area with its demo test attached. To turn this into a scoreable document, use the [compliance matrix framework](/guides/compliance-matrix-to-select-rfp-software). And for a worked example of one product read against these criteria, see our profile of [how Inventive AI approaches RFP automation](/compare/how-inventive-ai-approaches-rfp-automation).
+For the capability detail behind each row, [what to look for in RFP software](/guides/things-to-look-for-in-rfp-software) works through every area with its demo test attached. To turn this into a scoreable document, use the [compliance matrix framework](/guides/compliance-matrix-to-select-rfp-software). And for a worked example of one product read against these criteria, see our profile of [how Inventive AI approaches RFP automation](/compare/inventive-ai-review).

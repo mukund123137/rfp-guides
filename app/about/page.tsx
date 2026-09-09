@@ -11,12 +11,10 @@ import { AuthorCard } from '@/components/content/AuthorCard';
 import { authors } from '@/lib/authors';
 import { absoluteUrl } from '@/lib/site';
 import { partner, partnerUrl, disclosure } from '@/lib/partner';
-import { ButtonLink } from '@/components/ui/Button';
-import { Icon } from '@/components/ui/Icon';
 
 const TITLE = 'About RFP Software Guides';
 const DESCRIPTION =
-  'Who publishes this site, how it is funded, and the editorial standards behind every RFP software guide we produce. Published by Inventive AI — no vendor, including our publisher, can buy placement.';
+  'Who writes RFP Software Guides, how the site is funded, and the editorial standards behind everything we publish. No rankings, no sponsored posts, no vendor can buy coverage.';
 
 export const metadata: Metadata = buildMetadata({
   title: TITLE,
@@ -36,12 +34,12 @@ const crumbs = [
 
 const principles = [
   {
-    title: 'Nobody can buy placement — including our publisher',
-    body: 'Inventive AI publishes this site and builds software in this category. No vendor, ours included, pays to be featured, ranked or recommended, and no vendor sees a draft before publication. There are no sponsored posts, no affiliate links and no pay-to-play directory.',
+    title: 'Nobody can buy coverage',
+    body: 'No vendor pays to be featured, ranked or recommended here, and no vendor sees a draft before publication. There are no sponsored posts, no affiliate links and no pay-to-play directory. Our vendor listings are alphabetical within each category, and nobody can pay to be added or removed.',
   },
   {
-    title: 'We disclose the conflict on every page that has one',
-    body: 'Where a page mentions Inventive AI, it says who publishes it, right there — not buried in a footer. Our profile of our own product applies our published criteria to it and includes a section on where it is the wrong choice.',
+    title: 'We name the trade-off, not just the strength',
+    body: 'Every vendor we describe gets a "watch out for" line alongside what it does well, because a listing that only records strengths is an advertisement with extra steps. Where we recommend a product, we say what to test before you believe us.',
   },
   {
     title: 'Every guide is written by someone who did the work',
@@ -102,51 +100,12 @@ export default function AboutPage() {
             About {siteConfig.name}
           </h1>
           <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600">
-            We publish education about RFP software: how to buy it, how to evaluate it,
-            and how to make it stick once it is bought. This site is published by{' '}
-            {partner.name}, which builds software in the category — so the first thing
-            below is how we keep that from shaping what you read.
+            We publish practical education about RFP software: how to buy it, how to
+            evaluate it, how the products actually differ, and how to make one stick once
+            it is bought. No rankings, no sponsored posts, no pay-to-play directory.
           </p>
         </Container>
       </div>
-
-      {/* -------------------------------------------------------- Disclosure */}
-      <section
-        id="disclosure"
-        aria-labelledby="disclosure-heading"
-        className="scroll-mt-28 border-b border-ink-200 bg-paper-100"
-      >
-        <Container className="py-12 sm:py-14">
-          <div className="max-w-3xl">
-            <p className="eyebrow eyebrow-muted">Publisher disclosure</p>
-            <h2
-              id="disclosure-heading"
-              className="mt-4 text-balance font-display text-2xl font-semibold tracking-[-0.015em] text-ink-900 sm:text-[1.875rem]"
-            >
-              Who publishes this, and what that changes
-            </h2>
-            <p className="mt-4 text-pretty text-[1.0625rem] leading-relaxed text-ink-700">
-              {disclosure.long}
-            </p>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href={partner.profilePath} variant="secondary">
-                Read our profile of our own product
-                <Icon name="arrow-right" size={17} />
-              </ButtonLink>
-              <ButtonLink
-                href={partnerUrl('about-disclosure')}
-                external
-                variant="ghost"
-                ariaLabel={`Explore ${partner.name} (opens in a new tab)`}
-              >
-                Explore {partner.name}
-                <Icon name="arrow-up-right" size={16} />
-              </ButtonLink>
-            </div>
-          </div>
-        </Container>
-      </section>
 
       <Container className="py-14 sm:py-16">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16">
@@ -245,33 +204,30 @@ export default function AboutPage() {
               </ol>
             </section>
 
-            <section aria-labelledby="funding-heading" className="mt-16">
+            <section
+              id="funding"
+              aria-labelledby="funding-heading"
+              className="mt-16 scroll-mt-28"
+            >
               <h2
                 id="funding-heading"
-                className="text-2xl font-semibold tracking-[-0.015em] text-ink-900 sm:text-[1.75rem]"
+                className="font-display text-2xl font-semibold tracking-[-0.02em] text-ink-900 sm:text-[1.875rem]"
               >
-                How the site is funded
+                How this site is funded
               </h2>
               <div className="prose mt-5">
+                <p>{disclosure.long}</p>
                 <p>
-                  This site is funded by <strong>{partner.name}</strong>, which builds AI
-                  response software for RFPs and security questionnaires. There is no
-                  advertising, no sponsorship and no affiliate revenue. The commercial
-                  logic is straightforward and worth stating plainly: we publish useful,
-                  vendor-neutral education, some readers who need software eventually look
-                  at ours, and most do not. That is the whole arrangement.
+                  We think that is a better arrangement than the alternatives on offer in
+                  this category — affiliate commissions that quietly reorder a list, or a
+                  directory where position tracks ad spend. But it is a real interest, so
+                  you should read anything we say about{' '}
+                  <Link href={partner.reviewPath}>{partner.name}</Link> with it in mind,
+                  and check our reasoning against your own testing.
                 </p>
                 <p>
-                  What the funding does not buy is editorial control. Our evaluation
-                  criteria are written before any product is considered against them, we
-                  publish no vendor rankings, no vendor — including our publisher — sees a
-                  draft before publication, and no vendor pays to be featured. Where we do
-                  write about Inventive AI, we label it, apply our own criteria in public,
-                  and say what you should still test yourself.
-                </p>
-                <p>
-                  If this ever changes — paid placement, sponsored content, an affiliate
-                  arrangement — it will be disclosed here first and on every affected page.
+                  If this ever changes — sponsored content, affiliate links, paid
+                  placement — it will be disclosed here first and on every affected page.
                 </p>
               </div>
             </section>
@@ -320,8 +276,9 @@ export default function AboutPage() {
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-ink-900">Publisher</dt>
+                  <dt className="font-semibold text-ink-900">Funding</dt>
                   <dd className="mt-0.5 text-ink-600">
+                    Funded by{' '}
                     <a
                       href={partnerUrl('about-sidebar')}
                       target="_blank"
@@ -329,15 +286,21 @@ export default function AboutPage() {
                       className="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
                     >
                       {partner.name}
-                    </a>{' '}
-                    — AI response software for RFPs and security questionnaires
+                    </a>
+                    , with no editorial control.{' '}
+                    <Link
+                      href="#funding"
+                      className="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+                    >
+                      Details
+                    </Link>
                   </dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-ink-900">Paid placement</dt>
                   <dd className="mt-0.5 text-ink-600">
-                    None available to any vendor, including our publisher. No advertising,
-                    sponsorship or affiliate income.
+                    Not available to any vendor. No advertising, sponsorship or affiliate
+                    income.
                   </dd>
                 </div>
                 <div>

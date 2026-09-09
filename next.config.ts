@@ -32,7 +32,8 @@ const nextConfig: NextConfig = {
       { source: '/sitemap', destination: '/sitemap.xml', permanent: true },
 
       // Sections that live as anchors on a larger page.
-      { source: '/disclosure', destination: '/about#disclosure', permanent: true },
+      { source: '/disclosure', destination: '/about#funding', permanent: true },
+      { source: '/funding', destination: '/about#funding', permanent: true },
       {
         source: '/editorial-policy',
         destination: '/about#editorial-standards',
@@ -53,17 +54,24 @@ const nextConfig: NextConfig = {
       { source: '/newsletter', destination: '/#home-newsletter', permanent: true },
       { source: '/subscribe', destination: '/#home-newsletter', permanent: true },
 
-      // Shorthand for the publisher profile.
+      // Shorthand and the pre-rename URL for the Inventive AI review.
       {
         source: '/compare/inventive-ai',
-        destination: '/compare/how-inventive-ai-approaches-rfp-automation',
+        destination: '/compare/inventive-ai-review',
         permanent: true,
       },
       {
         source: '/inventive-ai',
-        destination: '/compare/how-inventive-ai-approaches-rfp-automation',
+        destination: '/compare/inventive-ai-review',
         permanent: true,
       },
+      {
+        source: '/compare/how-inventive-ai-approaches-rfp-automation',
+        destination: '/compare/inventive-ai-review',
+        permanent: true,
+      },
+      { source: '/best-rfp-software', destination: '/compare/best-rfp-software', permanent: true },
+      { source: '/vendors', destination: '/compare', permanent: true },
     ];
   },
   async headers() {

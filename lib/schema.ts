@@ -1,5 +1,4 @@
 import { absoluteUrl, ogImageUrl, siteConfig } from './site';
-import { partner } from './partner';
 import type { Article } from './content';
 
 /**
@@ -28,14 +27,6 @@ export function organizationSchema(): JsonLdObject {
       height: 512,
     },
     email: siteConfig.contactEmail,
-    /* The publisher relationship, stated in structured data as well as in the
-       visible disclosure — search engines should see the same affiliation a
-       reader does. */
-    parentOrganization: {
-      '@type': 'Organization',
-      name: partner.name,
-      url: partner.url,
-    },
     knowsAbout: [
       'RFP software',
       'Proposal management software',
@@ -85,7 +76,8 @@ export function articleSchema(article: Article): JsonLdObject {
   const url = absoluteUrl(article.url);
   return {
     /* Guides are instructional, comparisons are analysis, blog posts are posts.
-       Typing a publisher profile as a Review would misrepresent it. */
+       Comparison pieces stay Article rather than Review: we do not score
+       products on a rating scale, and Review implies one. */
     '@type':
       article.collection === 'guides'
         ? 'TechArticle'

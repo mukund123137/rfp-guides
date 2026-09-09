@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { footerNav, siteConfig } from '@/lib/site';
 import { partner, partnerUrl } from '@/lib/partner';
-import { Icon } from '@/components/ui/Icon';
 import { Container } from '@/components/ui/Container';
 import { NewsletterForm } from '@/components/ui/NewsletterForm';
 import { Logo } from './Logo';
@@ -21,21 +20,6 @@ export function Footer() {
             <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-400">
               {siteConfig.description}
             </p>
-
-            <a
-              href={partnerUrl('footer-brand')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-6 inline-flex items-center gap-2 rounded-lg border border-white/15 px-3.5 py-2.5 text-sm font-medium text-ink-200 transition-colors duration-150 ease-subtle hover:border-brand-400 hover:bg-white/5 hover:text-white"
-            >
-              <span className="text-ink-400 group-hover:text-brand-300">Built by</span>
-              {partner.name}
-              <Icon
-                name="arrow-up-right"
-                size={15}
-                className="text-ink-400 transition-transform duration-150 ease-subtle group-hover:translate-x-0.5 group-hover:text-white"
-              />
-            </a>
 
             <section aria-labelledby="newsletter-heading" className="mt-8">
               <h2 id="newsletter-heading" className="text-base font-semibold text-white">
@@ -82,23 +66,22 @@ export function Footer() {
               &copy; {year} {siteConfig.name}. All rights reserved.
             </p>
             <p className="mt-1.5 max-w-xl text-xs leading-relaxed text-ink-500">
-              Published by{' '}
+              Independent guidance on RFP software. No sponsored posts, no affiliate
+              links, no paid placement. Funded by{' '}
               <a
-                href={partnerUrl('footer-disclosure')}
+                href={partnerUrl('footer-funding')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-ink-300 underline decoration-dotted underline-offset-2 transition-colors duration-150 ease-subtle hover:text-white"
+                className="underline decoration-dotted underline-offset-2 transition-colors duration-150 ease-subtle hover:text-ink-300"
               >
                 {partner.name}
               </a>
-              . Editorially independent: we do not rank vendors, and no vendor —
-              including our publisher — can pay for placement or review a draft
-              before publication.{' '}
+              , which has no editorial control —{' '}
               <Link
-                href="/about#disclosure"
-                className="font-medium text-ink-300 underline decoration-dotted underline-offset-2 transition-colors duration-150 ease-subtle hover:text-white"
+                href="/about#funding"
+                className="underline decoration-dotted underline-offset-2 transition-colors duration-150 ease-subtle hover:text-ink-300"
               >
-                Read the disclosure
+                how that works
               </Link>
               .
             </p>

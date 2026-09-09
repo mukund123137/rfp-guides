@@ -23,7 +23,7 @@ related:
   - blogs:what-is-ai-rfp-software
   - guides:things-to-look-for-in-rfp-software
   - blogs:best-ai-proposal-tools
-inventiveAngle: governance
+toolNote: governance
 ctaHeading: Turn differentiators into demo tests
 ctaBody: Our evaluation scorecard turns each of these into a weighted row with a specific test attached, so a demo produces evidence instead of impressions.
 faq:

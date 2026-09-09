@@ -111,11 +111,12 @@ export default function PrivacyPage() {
 
         <h2 id="third-parties">Third parties and outbound links</h2>
         <p>
-          This site is published by {partner.name}. Links to {partner.name} carry campaign
-          parameters in the URL so that company can see which page a visitor arrived from.
-          Those parameters identify the page and placement — not you. Once you follow any
-          outbound link, the destination site&rsquo;s own privacy policy applies, and we
-          have no control over what it collects.
+          We link out to vendor websites throughout the site. Links to {partner.name},
+          which funds this site, carry campaign parameters in the URL so that company can
+          see which page a visitor arrived from — those parameters identify the page and
+          placement, not you. Once you follow any outbound link, the destination
+          site&rsquo;s own privacy policy applies and we have no control over what it
+          collects.
         </p>
         <p>
           We do not share, sell or transfer reader data to third parties, because we do not
@@ -146,7 +147,7 @@ export default function PrivacyPage() {
           Privacy questions and data requests go to{' '}
           <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>. See
           also our <Link href="/terms">terms of use</Link> and our{' '}
-          <Link href="/about#disclosure">publisher disclosure</Link>.
+          <Link href="/about#funding">funding note</Link>.
         </p>
       </LegalPage>
     </>
