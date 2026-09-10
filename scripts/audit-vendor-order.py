@@ -14,10 +14,12 @@ disclosure is excluded from A — it is a footnote, not a placement.
 import json
 import re
 import sys
+import os
 import urllib.request
 from collections import deque
 
-BASE = 'http://localhost:3111'
+# Target any environment: AUDIT_BASE=https://www.rfpsoftwareguide.com
+BASE = os.environ.get('AUDIT_BASE', 'http://localhost:3111').rstrip('/')
 VENDORS = ['Inventive AI', 'AutogenAI', 'Conveyor', 'Loopio', 'Qvidian',
            'Responsive', 'PandaDoc', 'Proposify']
 TARGET = 'Inventive AI'
@@ -27,7 +29,10 @@ DISCLOSURE = r'Inventive AI funds this site[^.]*\.'
 def fetch(path):
     try:
         return urllib.request.urlopen(
-            urllib.request.Request(BASE + path, headers={'User-Agent': 'audit'})
+            urllib.request.Request(
+                BASE + path,
+                headers={'User-Agent': 'Mozilla/5.0 (compatible; rfpguides-audit)'},
+            ), timeout=30
         ).read().decode('utf-8', 'replace')
     except Exception:
         return ''

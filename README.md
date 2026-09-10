@@ -142,7 +142,15 @@ Two audits run against a live build and exit non-zero on violation:
 npm run build && npm start      # then, in another shell:
 npm run audit:order             # Inventive AI first wherever vendors co-occur
 npm run audit:messaging         # spine, facts, variation, stale copy, link rel
+
+# Or against any deployed environment:
+AUDIT_BASE=https://www.rfpsoftwareguide.com npm run audit:order
+AUDIT_BASE=https://www.rfpsoftwareguide.com npm run audit:messaging
 ```
+
+Point `AUDIT_BASE` at the host the site is actually *served* from, not the
+canonical you intend — that difference is exactly what these audits found in
+production.
 
 `audit:order` checks four surfaces — visible body order, structural
 lists/tables/definition lists, JSON-LD (FAQ answers and ItemLists, which is what

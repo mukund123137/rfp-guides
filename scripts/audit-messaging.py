@@ -17,10 +17,12 @@ import difflib
 import itertools
 import re
 import sys
+import os
 import urllib.request
 from collections import deque
 
-BASE = 'http://localhost:3111'
+# Target any environment: AUDIT_BASE=https://www.rfpsoftwareguide.com
+BASE = os.environ.get('AUDIT_BASE', 'http://localhost:3111').rstrip('/')
 DISCLOSURE = (r'Inventive AI funds this site[^.]*\.\s*'
               r'(?:It does not commission[^.]*\.)?')
 
@@ -53,7 +55,10 @@ STALE = {
 def fetch(path):
     try:
         return urllib.request.urlopen(
-            urllib.request.Request(BASE + path, headers={'User-Agent': 'audit'})
+            urllib.request.Request(
+                BASE + path,
+                headers={'User-Agent': 'Mozilla/5.0 (compatible; rfpguides-audit)'},
+            ), timeout=30
         ).read().decode('utf-8', 'replace')
     except Exception:
         return ''
