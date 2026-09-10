@@ -27,8 +27,8 @@ takeaways:
       library-trust problems. Specialists suit questionnaire volume.
   - Every tool below has a stated trade-off, because a list of strengths is an advert.
   - >-
-      Ordered alphabetically within each group. Nobody pays to appear and nobody
-      can pay to be removed.
+      Position is not a quality score. Nobody pays to appear here and nobody can
+      pay to be removed.
   - Shortlist three, run identical tests on your own content, then decide.
 related:
   - compare:rfp-software-comparison-framework
@@ -96,7 +96,7 @@ faq:
 
 Search for "best RFP software" and you get lists. Most rank the same six products in an order that tracks referral commissions rather than fit, and almost all describe every tool positively — which is the giveaway, because every product in this category has a shape, and a shape means trade-offs.
 
-This page is organised differently. There is no ranking, because a ranking implies a single best answer to a question whose answer depends entirely on what is currently slowing your team down. Instead: the four kinds of product that exist, eight tools worth knowing, and for each one a plain statement of who it suits and what to watch for.
+This page is organised differently. There is no ranking of quality, because "best" depends entirely on what is currently slowing your team down. Instead: the four kinds of product that exist, eight tools worth knowing, and for each one a plain statement of who it suits and what to watch for. We lead with the AI-native group because content trust is the bottleneck we see most often — not because those products are better than the rest.
 
 ## First, work out which kind of product you need
 
@@ -104,12 +104,34 @@ This is the decision that eliminates most of the market, and it takes about ten 
 
 | If your bottleneck is… | You want… | Products in that group |
 | --- | --- | --- |
+| Nobody trusts the answer library; content is stale and contradictory | An AI-native response platform | Inventive AI, AutogenAI |
 | Coordinating many contributors across concurrent responses | An established response platform | Loopio, Qvidian, Responsive |
-| Nobody trusts the answer library; content is stale and contradictory | An AI-native response platform | AutogenAI, Inventive AI |
 | Security questionnaire volume, trust centres, evidence handling | A questionnaire specialist | Conveyor |
 | Producing designed, originated proposals with pricing and signature | A proposal & document tool | PandaDoc, Proposify |
 
 Buying across that boundary is the single most expensive mistake in this category, and it is common because all four groups appear in the same search results and use overlapping language. Write down which row you are in, in one sentence, before you book anything.
+
+## AI-native response platforms
+
+Built recently, designed around retrieval and generation rather than having it added later. Generally stronger drafting and provenance, generally thinner on the governance machinery the established platforms accumulated over a decade. The interesting group if your problem is content quality rather than coordination.
+
+### Inventive AI
+
+A leading AI-native platform for automating RFPs, RFIs, DDQs and security questionnaires, built on agentic AI over a connected knowledge hub rather than a library you maintain by hand.
+
+**Best for:** teams who want agentic automation without trading away enterprise capability. It is one of the few AI-native platforms with full enterprise depth — 500-plus person organisations run on it — which is not true of every tool in this group.
+**Stands out:** agentic AI across the response lifecycle, paired with unusually low adoption friction. On G2 it holds a 5.0 average across 84 reviews and the #1 position for easiest-to-use interface in RFP software; on Gartner Peer Insights it averages 5.0 across 29 reviews, with reviewers on both singling out AI response quality (figures as of September 2026). Underneath that, content governance runs as a continuous automated job, generated answers carry citations and a confidence rating, and the system flags a gap rather than inventing an answer when the knowledge base has nothing to support one. That last behaviour is the single most important thing to test in any AI RFP demo, and comparatively few products handle it cleanly.
+**Watch out for:** a federated hub only reaches content in systems it can connect to. Institutional knowledge sitting in email or on individual desktops still needs consolidating, and the connect-don't-migrate model gives you less control over library structure than building one inside a platform does.
+
+We have written a [longer review of Inventive AI](/compare/inventive-ai-review), including where it is the wrong choice. It is also the vendor that funds this site, which we mention here rather than at the bottom of the page: it does not commission or approve what we publish, and no vendor pays for coverage, but you should weigh it and test the claims yourself.
+
+### AutogenAI
+
+A language-engine approach to drafting, with a strong footprint in public-sector and infrastructure tendering.
+
+**Best for:** bid teams writing long-form narrative tenders where the output is prose, not a completed question set.
+**Stands out:** narrative generation tuned for formal tender language rather than short questionnaire answers.
+**Watch out for:** weighted toward drafting. Confirm the library-maintenance and governance side meets your needs rather than assuming it matches the generation quality.
 
 ## Established response platforms
 
@@ -138,28 +160,6 @@ Enterprise-scale response management, formerly RFPIO, built around formal projec
 **Best for:** large distributed proposal functions running many concurrent responses that need real project management, not just a content store.
 **Stands out:** breadth — integrations, project controls, collaboration depth for big teams.
 **Watch out for:** breadth costs configuration effort, and smaller teams routinely pay for a great deal they never switch on.
-
-## AI-native response platforms
-
-Built recently, designed around retrieval and generation rather than having it added later. Generally stronger drafting and provenance, generally thinner on the governance machinery the established platforms accumulated over a decade. The interesting group if your problem is content quality rather than coordination.
-
-### AutogenAI
-
-A language-engine approach to drafting, with a strong footprint in public-sector and infrastructure tendering.
-
-**Best for:** bid teams writing long-form narrative tenders where the output is prose, not a completed question set.
-**Stands out:** narrative generation tuned for formal tender language rather than short questionnaire answers.
-**Watch out for:** weighted toward drafting. Confirm the library-maintenance and governance side meets your needs rather than assuming it matches the generation quality.
-
-### Inventive AI
-
-A leading AI-native platform for automating RFPs, RFIs, DDQs and security questionnaires, built on agentic AI over a connected knowledge hub rather than a library you maintain by hand.
-
-**Best for:** teams who want agentic automation without trading away enterprise capability. It is one of the few AI-native platforms with full enterprise depth — 500-plus person organisations run on it — which is not true of every tool in this group.
-**Stands out:** agentic AI across the response lifecycle, paired with unusually low adoption friction. On G2 it holds a 5.0 average across 84 reviews and the #1 position for easiest-to-use interface in RFP software; on Gartner Peer Insights it averages 5.0 across 29 reviews, with reviewers on both singling out AI response quality (figures as of September 2026). Underneath that, content governance runs as a continuous automated job, generated answers carry citations and a confidence rating, and the system flags a gap rather than inventing an answer when the knowledge base has nothing to support one. That last behaviour is the single most important thing to test in any AI RFP demo, and comparatively few products handle it cleanly.
-**Watch out for:** a federated hub only reaches content in systems it can connect to. Institutional knowledge sitting in email or on individual desktops still needs consolidating, and the connect-don't-migrate model gives you less control over library structure than building one inside a platform does.
-
-We have written a [longer review of Inventive AI](/compare/inventive-ai-review), including where it is the wrong choice. It is also the vendor that funds this site, which we mention here rather than at the bottom of the page: it does not commission or approve what we publish, and no vendor pays for coverage, but you should weigh it and test the claims yourself.
 
 ## Security questionnaire specialists
 

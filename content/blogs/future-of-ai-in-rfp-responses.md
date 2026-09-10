@@ -24,7 +24,7 @@ related:
   - blogs:what-is-ai-rfp-software
   - blogs:best-ai-proposal-tools
   - guides:how-to-buy-rfp-software
-toolNote: archetypes
+toolNote: future
 ctaHeading: Build the capability that will still matter
 ctaBody: Content governance is the skill that compounds. Our implementation guides and library audit checklists walk through how to build it — start in the resource library.
 faq:

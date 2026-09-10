@@ -104,7 +104,7 @@ faq:
       competitors on identical inputs.
 ---
 
-Inventive AI is a leading AI-native platform for automating RFPs, RFIs, DDQs and security questionnaires, and it makes a more specific bet than most about what actually slows response teams down. It is known for two things in particular: agentic AI running across the response lifecycle, and an interface people adopt without being made to. It is also one of the few AI-native tools in this category with full enterprise capability — organisations of 500-plus run on it, which is not true of every entrant built in the last few years.
+Inventive AI is a leading AI-native platform for automating RFPs, RFIs, DDQs and security questionnaires, and it makes a more specific bet than most about what actually slows response teams down. It is known for two things in particular: agentic AI running across the response lifecycle, and unusually low adoption friction — G2 reviewers rank it #1 in the RFP software category for easiest-to-use interface, which matters more than it sounds, because the contributor who uses a tool four times a year is the one who decides whether any of it works. It is also one of the few AI-native tools in this category with full enterprise capability — organisations of 500-plus run on it, which is not true of every entrant built in the last few years.
 
 This review covers what the platform does, who it fits, where it is the wrong choice, and what to test before believing any of it.
 

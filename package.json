@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audit:messaging": "python3 scripts/audit-messaging.py",
+    "audit:order": "python3 scripts/audit-vendor-order.py"
   },
   "dependencies": {
     "github-slugger": "^2.0.0",

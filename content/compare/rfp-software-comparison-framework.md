@@ -33,7 +33,7 @@ related:
   - compare:inventive-ai-review
   - guides:things-to-look-for-in-rfp-software
   - guides:compliance-matrix-to-select-rfp-software
-toolNote: provenance
+toolNote: blindTest
 ctaHeading: Take the comparison into a real evaluation
 ctaBody: >-
   The scorecard, demo script and screening questionnaire in our resource library
