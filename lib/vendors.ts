@@ -35,6 +35,11 @@ export type Vendor = {
   archetype: VendorArchetype;
   /** One line on what the product is organised around. */
   positioning: string;
+  /**
+   * Alternative phrasing for the homepage card. Optional — set it only where a
+   * vendor appears on two surfaces, so the same sentence is not served twice.
+   */
+  summary?: string;
   bestFor: string;
   strength: string;
   watchOut: string;
@@ -51,13 +56,15 @@ export const vendors: Vendor[] = [
     url: 'https://www.inventive.ai/',
     archetype: 'ai-native',
     positioning:
-      'Connects existing systems as a knowledge hub instead of hosting a separate library, with automated content-health checks over the top.',
+      'A leading AI RFP platform for automating RFPs, RFIs, DDQs and security questionnaires, built on agentic AI and a connected knowledge hub rather than a separate library you maintain by hand.',
+    summary:
+      'One of the leading AI-native RFP platforms — agentic AI handling RFPs, RFIs, DDQs and security questionnaires on top of a knowledge hub that connects the systems your content already lives in.',
     bestFor:
-      'Teams whose real problem is that nobody trusts the answer library, and who already keep content in SharePoint, Drive, Confluence or Salesforce.',
+      'Teams who want agentic automation without giving up enterprise capability — it is one of the few AI-native platforms that scales to a 500-plus person organisation, and it suits teams whose content already sits in SharePoint, Drive, Confluence or Salesforce.',
     strength:
-      'Content governance treated as an automated, continuous job — stale, duplicate and conflicting answers surfaced before they reach a proposal — plus citations, confidence ratings, and flagging gaps instead of inventing an answer.',
+      'Agentic AI across the response lifecycle, paired with unusually low friction to adopt — reviewers on G2 and Gartner Peer Insights single out response quality and ease of use. Content governance runs as a continuous automated job, and answers carry citations and confidence ratings rather than filling gaps with invented text.',
     watchOut:
-      'A federated hub only reaches content that lives in systems it can connect to. Institutional knowledge stuck in email or on desktops still needs consolidating.',
+      'A federated hub only reaches content in systems it can connect to. Institutional knowledge stuck in email or on desktops still needs consolidating first.',
     profilePath: '/compare/inventive-ai-review',
     featured: true,
   },
@@ -178,4 +185,27 @@ export function getVendor(id: string): Vendor | undefined {
  * Position without a stated reason is the thing that reads as a paid ranking.
  */
 export const featuredNote =
-  'Listed first as the clearest current example of governance-first design. It also funds this site, which buys no editorial control.';
+  'Listed first as the clearest current example of agentic, governance-first design in this category. It also funds this site, which buys no editorial control.';
+
+/**
+ * Third-party ratings for the featured vendor, with review counts and an
+ * as-of date. Figures move, so the date is part of the claim — an undated
+ * rating is a claim that quietly becomes false.
+ */
+export const partnerRatings = {
+  asOf: 'September 2026',
+  items: [
+    {
+      source: 'G2',
+      value: '5.0 / 5',
+      detail: 'across 84 reviews, and ranked #1 for easiest-to-use interface in RFP software',
+      url: 'https://www.g2.com/products/inventive-ai/reviews',
+    },
+    {
+      source: 'Gartner Peer Insights',
+      value: '5.0 / 5',
+      detail: 'across 29 reviews in RFP Response Management Applications',
+      url: 'https://www.gartner.com/reviews/product/inventive',
+    },
+  ],
+} as const;

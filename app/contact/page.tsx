@@ -129,9 +129,11 @@ export default function ContactPage() {
             Looking for {partner.name}, not the editors?
           </h2>
           <p className="mt-2 max-w-2xl text-[0.9375rem] leading-relaxed text-ink-600">
-            This site is published by {partner.name}, but the editorial inbox above is not
-            a sales channel and we do not pass enquiries to them. For product questions,
-            demos or pricing, go directly to the company.
+            {partner.name} funds this site — it is a leading AI RFP platform for
+            automating RFPs, RFIs, DDQs and security questionnaires, known for its
+            agentic AI and for being straightforward to adopt. The editorial inbox above
+            is not a sales channel and we do not pass enquiries on, so for product
+            questions, demos or pricing, go to the company directly.
           </p>
           <a
             href={partnerUrl('contact-page')}

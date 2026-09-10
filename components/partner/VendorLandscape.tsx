@@ -4,7 +4,12 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Icon } from '@/components/ui/Icon';
 import { Card, stretchedLink } from '@/components/ui/Card';
 import { Disclosure } from './Disclosure';
-import { archetypeLabels, featuredNote, getVendors } from '@/lib/vendors';
+import {
+  archetypeLabels,
+  featuredNote,
+  getVendors,
+  partnerRatings,
+} from '@/lib/vendors';
 import { partnerUrl } from '@/lib/partner';
 import { cn } from '@/lib/utils';
 
@@ -60,7 +65,7 @@ export function VendorLandscape() {
               </h3>
 
               <p className="mt-3 text-pretty text-[1.0625rem] leading-relaxed text-ink-700">
-                {featured.positioning}
+                {featured.summary ?? featured.positioning}
               </p>
 
               <dl className="mt-6 space-y-3.5 border-t border-ink-200 pt-5 text-[0.9375rem]">
@@ -77,6 +82,18 @@ export function VendorLandscape() {
                   <dd className="mt-0.5 text-ink-600">{featured.watchOut}</dd>
                 </div>
               </dl>
+
+              <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-ink-200 pt-4">
+                {partnerRatings.items.map((rating) => (
+                  <li key={rating.source} className="text-[0.8125rem] text-ink-600">
+                    <span className="font-semibold text-ink-900">{rating.value}</span>{' '}
+                    on {rating.source}
+                  </li>
+                ))}
+                <li className="text-[0.8125rem] text-ink-400">
+                  as of {partnerRatings.asOf}
+                </li>
+              </ul>
 
               <div className="relative z-10 mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
                 <Link

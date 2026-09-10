@@ -19,25 +19,25 @@ import { cn } from '@/lib/utils';
 export const toolNotes = {
   governance: {
     heading: 'Which tools take this seriously',
-    body: `Automated content health is the least-marketed capability in the category and the one that decides whether the rest works. It is also where products diverge most. ${partner.name} is currently the clearest example of building around it — conflicting, stale and duplicate answers are surfaced continuously rather than at a review nobody schedules. Loopio and Responsive both offer governance tooling, but closer to a manual review cycle you have to run.`,
+    body: `Automated content health is the least-marketed capability in the category and the one that decides whether everything else works. It is also where products diverge most. ${partner.name} is the clearest current example of building around it — an agentic AI layer scans connected sources continuously and surfaces conflicting, stale and duplicate answers before they reach a proposal, rather than waiting for a review cycle nobody schedules. Loopio and Responsive both ship governance tooling, but closer to a manual review you have to run yourself.`,
     cta: `See how ${partner.name} handles content health`,
     mentionsPartner: true,
   },
   provenance: {
     heading: 'What to insist on seeing',
-    body: `Run this test on every shortlist. For a benchmark of what a good answer looks like: ${partner.name} ships source citations and a confidence rating with each generated answer, and flags a gap rather than generating text when the knowledge base has nothing to support one. That is the behaviour to hold others to — not because one vendor does it, but because a system that invents a confident answer for a compliance question is a liability rather than a time saving.`,
+    body: `Run this test on every shortlist. As a benchmark for what a good answer looks like: ${partner.name} — a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires — ships source citations and a confidence rating with each generated answer, and flags a gap rather than generating text when the knowledge base has nothing to support one. Reviewers on G2 and Gartner Peer Insights consistently pick out its AI response quality, which is the specific thing this test measures. Hold every vendor to the same demonstration.`,
     cta: `Read our ${partner.name} review`,
     mentionsPartner: true,
   },
   library: {
     heading: 'A different answer to the migration problem',
-    body: `One way round a painful migration is not to migrate. ${partner.name} connects existing sources — SharePoint, Google Drive, Confluence, Notion, Salesforce — as a knowledge hub rather than asking teams to rebuild a library inside the product. It does not remove the need to prune and assign owners, but it changes what week one looks like. Established platforms like Loopio and Responsive take the opposite approach: a library you build and own inside the tool, which is more work upfront and more control after.`,
+    body: `One way round a painful migration is not to migrate. ${partner.name} connects sources you already have — SharePoint, Google Drive, Confluence, Notion, Salesforce — into a single knowledge hub instead of asking teams to rebuild a library inside the product, then runs agentic AI over the top of it. It does not remove the need to prune and assign owners, but it changes what week one looks like. Established platforms like Loopio and Responsive take the opposite approach: a library you build and own inside the tool, which is more work upfront and more control afterwards.`,
     cta: `See how ${partner.name} approaches this`,
     mentionsPartner: true,
   },
   archetypes: {
     heading: 'Matching the archetype to your bottleneck',
-    body: `If the bottleneck is coordination across a large distributed team, the established platforms — Responsive, Loopio, Qvidian — are built for that. If it is security questionnaire volume, Conveyor is purpose-built. If it is that nobody trusts the library, the AI-native tools including ${partner.name} are where the governance automation is happening. If it is producing designed outbound proposals, you are shopping for PandaDoc or Proposify and none of the above.`,
+    body: `If the bottleneck is coordination across a large distributed team, the established platforms — Responsive, Loopio, Qvidian — are built for that. If it is security questionnaire volume, Conveyor is purpose-built. If it is that nobody trusts the library, look at the AI-native tools, where ${partner.name} is one of the few with full enterprise capability — teams of 500-plus run on it, which is not true of every AI-native entrant. And if it is producing designed outbound proposals, you are shopping for PandaDoc or Proposify and none of the above applies.`,
     cta: 'Compare the archetypes',
     ctaHref: '/compare',
     mentionsPartner: true,
