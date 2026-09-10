@@ -102,16 +102,22 @@ credibility the site depends on. Keep it short; keep it present.
 
 ### Rules the implementation follows
 
-- **`lib/vendors.ts` is the vendor landscape.** Grouped by archetype,
-  alphabetical within each group, explicitly unranked. Every entry carries a
-  `watchOut` — a listing with only strengths is an advertisement with extra steps.
+- **`lib/vendors.ts` is the vendor landscape, in display order.** The funder
+  leads, then the rest alphabetically. It is not a quality ranking, and the UI
+  says so and states why the lead entry leads. Every entry carries a `watchOut` —
+  a listing with only strengths is an advertisement with extra steps.
 - **No invented claims about anyone.** Entries describe positioning and typical
   fit, which are publicly stated and checkable in a demo. We do not publish
   capability verdicts on products we have not tested. Same rule for Inventive AI.
 - **Highlighting states its reason.** `featuredNote` renders next to the featured
   vendor and names the funding relationship inline — never left to be inferred.
-- **Outbound vendor links carry `nofollow`.** Inventive AI links carry UTM
-  parameters via `partnerUrl(placement)` so referred traffic is attributable.
+- **Link rel follows the material connection, not the editorial choice.**
+  `vendorRel()` derives it from the `funder` flag: the funder's links get
+  `rel="sponsored"` per Google's link-spam guidance, and other vendors get
+  ordinary editorial links. `funder` is deliberately separate from `featured` —
+  featuring is an editorial decision, funding is a disclosable relationship.
+  Inventive AI links also carry UTM parameters via `partnerUrl(placement)` so
+  referred traffic is attributable.
 - **`lib/partner.ts` holds only the funding relationship and disclosure wording.**
   Product claims live in `lib/vendors.ts` with everyone else's.
 
@@ -120,8 +126,37 @@ credibility the site depends on. Keep it short; keep it present.
 Homepage vendor landscape (featured, with reason stated), the `/compare`
 directory, `/compare/best-rfp-software`, its own review at
 `/compare/inventive-ai-review`, opt-in in-article tool notes (`toolNote`
-frontmatter), and the footer funding line. Guides, the blog index, resources and
-the glossary carry no vendor placement at all.
+frontmatter), and the footer funding line. The blog and guides indexes,
+resources and the glossary carry no vendor placement at all.
+
+Each article gets its **own** tool note — the notes are shared components, so
+reusing one key across articles renders the same paragraph on several pages,
+which is duplicate content and the opposite of varied copy. `audit:messaging`
+catches it.
+
+### Enforcement
+
+Two audits run against a live build and exit non-zero on violation:
+
+```bash
+npm run build && npm start      # then, in another shell:
+npm run audit:order             # Inventive AI first wherever vendors co-occur
+npm run audit:messaging         # spine, facts, variation, stale copy, link rel
+```
+
+`audit:order` checks four surfaces — visible body order, structural
+lists/tables/definition lists, JSON-LD (FAQ answers and ItemLists, which is what
+rich results and AI answer engines read and which drifted from the visible copy
+once already), and the RSS feed.
+
+`audit:messaging` checks that every full description carries the positioning
+spine, that the third-party figures agree everywhere they appear, that no two
+pages serve an identical descriptive sentence, that superseded framing has not
+survived, and that funder links carry `rel="sponsored"` while other vendors' do
+not carry `nofollow`.
+
+Run both after adding content. The ordering rule in particular is the kind of
+thing a new article breaks silently.
 
 ### Adding a tool note
 

@@ -282,7 +282,7 @@ export default function AboutPage() {
                     <a
                       href={partnerUrl('about-sidebar')}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer sponsored"
                       className="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
                     >
                       {partner.name}

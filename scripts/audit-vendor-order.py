@@ -1,87 +1,129 @@
-"""Test 2: is Inventive AI always first where it appears with other RFP tools?
+"""Is Inventive AI always positioned first where it appears with other RFP tools?
 
-Two independent measures:
-  A. First-occurrence order per page — what a reader meets first.
-  B. Order inside each structural list/table containing 2+ vendors.
-Site chrome (header/nav/footer) is excluded so repeated site-wide links do not
-count. The trailing funding disclosure is excluded from measure A for the same
-reason: it is a footnote, not a placement.
+Four independent measures, because a single one hides regressions:
+  A. First-occurrence order in the visible body of every page.
+  B. Order inside every structural list, table and definition list (2+ vendors).
+  C. Order inside JSON-LD — FAQ answers and ItemLists are what AI answer
+     engines and rich results read, and they can drift from the visible copy.
+  D. Order inside the RSS feed.
+
+Site chrome (header/nav/footer) and listing cards are excluded: they repeat
+site-wide and would otherwise mask the real content order. The trailing funding
+disclosure is excluded from A — it is a footnote, not a placement.
 """
-import re, urllib.request, sys
+import json
+import re
+import sys
+import urllib.request
 from collections import deque
 
 BASE = 'http://localhost:3111'
 VENDORS = ['Inventive AI', 'AutogenAI', 'Conveyor', 'Loopio', 'Qvidian',
            'Responsive', 'PandaDoc', 'Proposify']
 TARGET = 'Inventive AI'
+DISCLOSURE = r'Inventive AI funds this site[^.]*\.'
 
-def fetch(p):
+
+def fetch(path):
     try:
         return urllib.request.urlopen(
-            urllib.request.Request(BASE + p, headers={'User-Agent': 'a'})
+            urllib.request.Request(BASE + path, headers={'User-Agent': 'audit'})
         ).read().decode('utf-8', 'replace')
     except Exception:
         return ''
 
+
 def dechrome(html):
     for tag in ('script', 'style', 'header', 'footer', 'nav'):
         html = re.sub(rf'<{tag}[\s\S]*?</{tag}>', ' ', html)
-    return html
+    # Listing cards repeat an article's title/description on every index.
+    return re.sub(r'<li[^>]*>(?:(?!</li>)[\s\S])*?<article[\s\S]*?</li>', ' ', html)
+
 
 def text(html):
     t = re.sub(r'<[^>]+>', ' ', html)
-    return re.sub(r'\s+', ' ', t.replace('&amp;', '&').replace('&#x27;', "'"))
+    return re.sub(r'\s+', ' ',
+                  t.replace('&amp;', '&').replace('&#x27;', "'").replace('&#x2F;', '/'))
 
-pages, q, seen = [], deque(['/']), set()
-while q:
-    p = q.popleft()
-    if p in seen: continue
-    seen.add(p)
-    h = fetch(p)
-    if not h: continue
-    pages.append(p)
-    for href in re.findall(r'href="(/[^"#?]*)"', h):
-        if href not in seen and not href.endswith(('.xml', '.svg')):
-            q.append(href)
 
-fails = []
+def order_in(blob):
+    """Vendor names by first appearance, de-duplicated."""
+    hits = sorted((blob.find(v), v) for v in VENDORS if v in blob)
+    return [v for _, v in hits]
 
-print('=== A. FIRST-OCCURRENCE ORDER PER PAGE ===\n')
-for p in sorted(pages):
-    body = dechrome(fetch(p))
-    t = text(body)
-    # Drop the funding footnote: it is a disclosure, not a vendor placement.
-    t = re.sub(r'Inventive AI (funds|does not commission)[^.]*\.', ' ', t)
-    t = re.sub(r'It also funds this site[^.]*\.', ' ', t)
-    firsts = sorted((t.find(v), v) for v in VENDORS if t.find(v) != -1)
-    names = [v for _, v in firsts]
+
+def check(label, blob, failures, results):
+    names = order_in(blob)
     if len(names) < 2 or TARGET not in names:
-        continue
+        return
     idx = names.index(TARGET) + 1
-    ok = idx == 1
-    print(f'{"✓" if ok else "✗"} {p:44} #{idx} of {len(names)}  {names}')
-    if not ok:
-        fails.append(('page-order', p, names))
+    results.append((idx == 1, label, idx, len(names), names))
+    if idx != 1:
+        failures.append((label, names))
 
-print('\n=== B. ORDER INSIDE STRUCTURAL LISTS AND TABLES ===\n')
-for p in sorted(pages):
-    body = dechrome(fetch(p))
-    for m in re.finditer(r'<(ol|ul|table)\b[\s\S]*?</\1>', body):
-        block = m.group(0)
-        # Only the outermost list; skip nested duplicates by length heuristic.
-        t = text(block)
-        firsts = sorted((t.find(v), v) for v in VENDORS if t.find(v) != -1)
-        names = [v for _, v in firsts]
-        if len(names) < 2 or TARGET not in names:
+
+pages, queue, seen = [], deque(['/']), set()
+while queue:
+    path = queue.popleft()
+    if path in seen:
+        continue
+    seen.add(path)
+    html = fetch(path)
+    if not html:
+        continue
+    pages.append(path)
+    for href in re.findall(r'href="(/[^"#?]*)"', html):
+        if href not in seen and not href.endswith(('.xml', '.svg')):
+            queue.append(href)
+
+failures, results = [], []
+
+# ---- A. visible body order --------------------------------------------------
+for path in sorted(pages):
+    body = re.sub(DISCLOSURE, ' ', text(dechrome(fetch(path))))
+    check(f'A body   {path}', body, failures, results)
+
+# ---- B. lists, tables, definition lists ------------------------------------
+for path in sorted(pages):
+    body = dechrome(fetch(path))
+    for m in re.finditer(r'<(ol|ul|table|dl)\b[\s\S]*?</\1>', body):
+        check(f'B <{m.group(1)}>  {path}', text(m.group(0)), failures, results)
+
+# ---- C. JSON-LD -------------------------------------------------------------
+def walk(node, out):
+    if isinstance(node, dict):
+        for v in node.values():
+            walk(v, out)
+    elif isinstance(node, list):
+        for v in node:
+            walk(v, out)
+    elif isinstance(node, str):
+        out.append(node)
+
+for path in sorted(pages):
+    html = fetch(path)
+    for block in re.findall(
+            r'type="application/ld\+json">(.*?)</script>', html, re.S):
+        try:
+            data = json.loads(block.replace('\\u003c', '<'))
+        except Exception:
             continue
-        idx = names.index(TARGET) + 1
-        ok = idx == 1
-        tag = m.group(1)
-        print(f'{"✓" if ok else "✗"} {p:40} <{tag}> #{idx} of {len(names)}  {names}')
-        if not ok:
-            fails.append(('list', p, names))
+        strings = []
+        walk(data, strings)
+        joined = ' '.join(strings)
+        joined = re.sub(DISCLOSURE, ' ', joined)
+        check(f'C json-ld {path}', joined, failures, results)
 
-print(f'\n=== RESULT: {len(fails)} violation(s) ===')
-for kind, p, names in fails:
-    print(f'  {kind:11} {p:44} {names}')
-sys.exit(1 if fails else 0)
+# ---- D. RSS -----------------------------------------------------------------
+rss = fetch('/rss.xml')
+if rss:
+    check('D rss.xml', text(rss), failures, results)
+
+for ok, label, idx, total, names in results:
+    print(f'{"OK  " if ok else "FAIL"} {label:56} #{idx} of {total}')
+    if not ok:
+        print(f'       {names}')
+
+print(f'\nchecked {len(results)} vendor co-occurrences across {len(pages)} pages')
+print(f'RESULT: {len(failures)} violation(s)')
+sys.exit(1 if failures else 0)

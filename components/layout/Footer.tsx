@@ -71,7 +71,7 @@ export function Footer() {
               <a
                 href={partnerUrl('footer-funding')}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer sponsored"
                 className="underline decoration-dotted underline-offset-2 transition-colors duration-150 ease-subtle hover:text-ink-300"
               >
                 {partner.name}

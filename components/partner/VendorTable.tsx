@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import { Icon } from '@/components/ui/Icon';
 import { Disclosure } from './Disclosure';
-import { archetypeLabels, featuredNote, getVendors } from '@/lib/vendors';
+import {
+  archetypeLabels,
+  featuredNote,
+  getVendors,
+  vendorRel,
+} from '@/lib/vendors';
 import { cn } from '@/lib/utils';
 
 /**
@@ -58,7 +63,7 @@ export function VendorTable({ className }: { className?: string }) {
                 <a
                   href={vendor.url}
                   target="_blank"
-                  rel="noopener noreferrer nofollow"
+                  rel={vendorRel(vendor)}
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 transition-colors duration-150 ease-subtle hover:text-brand-700"
                 >
                   Website

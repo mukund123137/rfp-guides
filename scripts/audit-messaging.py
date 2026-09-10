@@ -1,134 +1,190 @@
-"""Test 1: is the Inventive AI message consistent, and varied rather than pasted?
+"""Is the Inventive AI message consistent, accurate and varied across the site?
 
-Consistent  = the same core claims appear wherever the product is described.
-Varied      = no two surfaces serve a byte-identical descriptive sentence, and
-              pairwise similarity sits in a band (high enough to be the same
-              message, low enough not to be copy-paste).
+Five checks:
+  1. SPINE      — every full description carries the core positioning.
+  2. CLAIMS     — coverage of the five supporting claims, per surface.
+  3. FACTS      — the numbers agree everywhere they appear (a rating quoted two
+                  different ways is worse than not quoting it at all).
+  4. VARIATION  — no two pages serve an identical descriptive sentence, and no
+                  pair is near-identical.
+  5. STALE      — no superseded framing survives anywhere.
+
+Consistency is measured by claim overlap, not string similarity: similarity
+punishes sentences of different length that carry identical claims, so it is
+used only to catch copy-paste at the high end.
 """
-import re, urllib.request, sys, itertools, difflib
+import difflib
+import itertools
+import re
+import sys
+import urllib.request
 from collections import deque
 
 BASE = 'http://localhost:3111'
+DISCLOSURE = (r'Inventive AI funds this site[^.]*\.\s*'
+              r'(?:It does not commission[^.]*\.)?')
 
+SPINE = [
+    ('leading', r'\bleading\b'),
+    ('scope: RFP/RFI/DDQ/SecQ', r'RFIs?\b[\s\S]{0,40}(DDQs?|security questionnaire)'),
+]
 CLAIMS = {
-    'leading':          r'\bleading\b',
-    'RFP/RFI/DDQ/SecQ':  r'RFIs?\b[\s\S]{0,40}(DDQs?|security questionnaire)',
-    'agentic AI':        r'[Aa]gentic',
-    'ease of adoption':  r'easiest-to-use|ease of use|low friction to adopt|straightforward to adopt|adoption friction',
-    'G2 + Gartner':      r'G2[\s\S]{0,60}Gartner|Gartner[\s\S]{0,60}G2',
-    'enterprise 500+':   r'500-plus|enterprise capability|enterprise depth',
+    'agentic AI': r'[Aa]gentic',
+    'ease of adoption': (r'easiest-to-use|ease of use|low (?:adoption )?friction'
+                         r'|straightforward to adopt|adoption friction|#1 .{0,30}ease'),
+    'G2 + Gartner': r'G2[\s\S]{0,80}Gartner|Gartner[\s\S]{0,80}G2',
+    'enterprise 500+': r'500-plus|enterprise capability|enterprise depth',
+}
+# Every figure must appear in exactly one form site-wide.
+FACTS = {
+    'G2 rating': (r'G2[\s\S]{0,80}?(\d\.\d)', {'5.0'}),
+    'G2 review count': (r'(\d+) reviews[^.]{0,60}easiest-to-use|G2[^.]{0,60}?(\d{2,}) reviews', {'84'}),
+    'Gartner review count': (r'Gartner[\s\S]{0,120}?(\d{2,}) reviews', {'29'}),
+    'seat scale': (r'(\d+)-plus (?:seats|person)', {'500'}),
+    'as-of date': (r'as of (\w+ \d{4})|\((\w+ \d{4})\)', {'September 2026'}),
+}
+STALE = {
+    'publisher framing': r'published by Inventive|our publisher|Publisher note',
+    'old badge': r'Worth a look',
+    'governance-first only positioning': r'governance-first RFP automation(?! )',
 }
 
-def fetch(p):
+
+def fetch(path):
     try:
         return urllib.request.urlopen(
-            urllib.request.Request(BASE + p, headers={'User-Agent': 'a'})
+            urllib.request.Request(BASE + path, headers={'User-Agent': 'audit'})
         ).read().decode('utf-8', 'replace')
     except Exception:
         return ''
 
-def dechrome(h):
+
+def dechrome(html):
     for tag in ('script', 'style', 'header', 'footer', 'nav'):
-        h = re.sub(rf'<{tag}[\s\S]*?</{tag}>', ' ', h)
-    # Listing cards legitimately repeat an article's title and description on
-    # every index that shows them. Strip the <li> wrappers that contain a card,
-    # but keep the page's own <article> body.
-    h = re.sub(r'<li[^>]*>(?:(?!</li>)[\s\S])*?<article[\s\S]*?</li>', ' ', h)
-    return h
+        html = re.sub(rf'<{tag}[\s\S]*?</{tag}>', ' ', html)
+    return re.sub(r'<li[^>]*>(?:(?!</li>)[\s\S])*?<article[\s\S]*?</li>', ' ', html)
 
-def text(h):
-    t = re.sub(r'<[^>]+>', ' ', h)
-    return re.sub(r'\s+', ' ', t.replace('&amp;', '&').replace('&#x27;', "'").replace('&#x2F;','/'))
 
-pages, q, seen = [], deque(['/']), set()
-while q:
-    p = q.popleft()
-    if p in seen: continue
-    seen.add(p)
-    h = fetch(p)
-    if not h: continue
-    pages.append(p)
-    for href in re.findall(r'href="(/[^"#?]*)"', h):
+def text(html):
+    t = re.sub(r'<[^>]+>', ' ', html)
+    return re.sub(r'\s+', ' ',
+                  t.replace('&amp;', '&').replace('&#x27;', "'").replace('&#x2F;', '/'))
+
+
+pages, queue, seen = [], deque(['/']), set()
+while queue:
+    path = queue.popleft()
+    if path in seen:
+        continue
+    seen.add(path)
+    html = fetch(path)
+    if not html:
+        continue
+    pages.append(path)
+    for href in re.findall(r'href="(/[^"#?]*)"', html):
         if href not in seen and not href.endswith(('.xml', '.svg')):
-            q.append(href)
-
-# Boilerplate that is meant to be identical everywhere: the funding disclosure.
-DISCLOSURE = r'Inventive AI funds this site\. It does not commission, review or approve what we publish, and no vendor can pay for coverage\.'
+            queue.append(href)
 
 surfaces = {}
-for p in sorted(pages):
-    t = text(dechrome(fetch(p)))
-    if 'Inventive AI' not in t:
-        continue
-    body = re.sub(DISCLOSURE, ' ', t)
-    if 'Inventive AI' not in body:
-        continue          # only the disclosure mentioned it
-    surfaces[p] = body
+for path in sorted(pages):
+    body = re.sub(DISCLOSURE, ' ', text(dechrome(fetch(path))))
+    if 'Inventive AI' in body:
+        surfaces[path] = body
 
-print(f'Pages describing Inventive AI (excluding the fixed disclosure): {len(surfaces)}\n')
-print('=== CLAIM CONSISTENCY ===\n')
-hdr = 'page'.ljust(44) + ''.join(k[:9].rjust(11) for k in CLAIMS)
-print(hdr)
-missing_total = 0
-for p, body in surfaces.items():
-    row = p.ljust(44)
-    for k, rx in CLAIMS.items():
-        hit = bool(re.search(rx, body))
-        row += ('     yes   ' if hit else '      --   ')
+failures = []
+score = {p: sum(bool(re.search(rx, b)) for _, rx in SPINE)
+            + sum(bool(re.search(rx, b)) for rx in CLAIMS.values())
+         for p, b in surfaces.items()}
+FULL = [p for p in surfaces if score[p] >= 4]
+
+print(f'Pages describing Inventive AI: {len(surfaces)}  (full descriptions: {len(FULL)})\n')
+
+print('=== 1+2. SPINE AND CLAIM COVERAGE ===\n')
+cols = [n for n, _ in SPINE] + list(CLAIMS)
+print('page'.ljust(46) + ''.join(c[:11].rjust(13) for c in cols) + '   full')
+for path in sorted(surfaces):
+    body = surfaces[path]
+    row = path.ljust(46)
+    for _, rx in SPINE:
+        row += ('         yes ' if re.search(rx, body) else '          -- ')
+    for rx in CLAIMS.values():
+        row += ('         yes ' if re.search(rx, body) else '          -- ')
+    row += '    *' if path in FULL else '     '
     print(row)
+for path in FULL:
+    for name, rx in SPINE:
+        if not re.search(rx, surfaces[path]):
+            failures.append(f'spine missing "{name}" on {path}')
 
-# Which surfaces are full product descriptions vs passing mentions?
-FULL = [p for p, b in surfaces.items()
-        if sum(bool(re.search(rx, b)) for rx in CLAIMS.values()) >= 4]
-print(f'\nFull descriptions (>=4 of 6 claims): {len(FULL)}')
-for p in FULL: print(f'   {p}')
+print('\n=== 3. FACT CONSISTENCY ===\n')
+for name, (rx, allowed) in FACTS.items():
+    found = set()
+    for body in surfaces.values():
+        for m in re.finditer(rx, body):
+            found |= {g for g in m.groups() if g}
+    bad = found - allowed
+    status = 'OK  ' if (found and not bad) else ('FAIL' if bad else 'none')
+    print(f'{status} {name:24} found={sorted(found) or "-"} expected={sorted(allowed)}')
+    if bad:
+        failures.append(f'inconsistent {name}: {sorted(bad)}')
 
-print('\n=== VARIATION: identical descriptive sentences across pages? ===\n')
-sent = {}
-for p, b in surfaces.items():
-    sent[p] = {s.strip() for s in re.split(r'(?<=[.!?]) ', b)
-               if 'Inventive AI' in s and len(s) > 90}
-dupes = []
-for (p1, s1), (p2, s2) in itertools.combinations(sent.items(), 2):
-    for common in s1 & s2:
-        dupes.append((p1, p2, common[:90]))
-print(f'identical long descriptive sentences shared between pages: {len(dupes)}')
-for d in dupes: print('   !!', d)
+print('\n=== 4. VARIATION ===\n')
+sents = {p: {s.strip() for s in re.split(r'(?<=[.!?]) ', b)
+             if 'Inventive AI' in s and len(s) > 90}
+         for p, b in surfaces.items()}
+dupes = [(a, b, c[:80]) for (a, s1), (b, s2) in itertools.combinations(sents.items(), 2)
+         for c in s1 & s2]
+print(f'identical descriptive sentences shared between pages: {len(dupes)}')
+for d in dupes:
+    print('   !!', d)
+    failures.append(f'duplicate sentence on {d[0]} and {d[1]}')
 
-print('\n=== VARIATION: pairwise similarity of lead descriptions ===\n')
 leads = {}
-for p in FULL:
-    b = surfaces[p]
-    cands = [x.strip() for x in re.split(r'(?<=[.!?]) ', b)
+for path in FULL:
+    cands = [x.strip() for x in re.split(r'(?<=[.!?]) ', surfaces[path])
              if 'Inventive AI' in x and 'leading' in x and len(x) > 80]
-    if not cands:
-        cands = [x.strip() for x in re.split(r'(?<=[.!?]) ', b)
-                 if 'Inventive AI' in x and len(x) > 80]
-    leads[p] = re.sub(r'\s+', ' ', cands[0])[:240] if cands else ''
-for p, l in leads.items():
-    print(f'{p}\n   {l}\n')
-vals = list(leads.items())
-band_fail = []
-print('pairwise similarity:')
-for (p1, a), (p2, b) in itertools.combinations(vals, 2):
+    if cands:
+        leads[path] = re.sub(r'\s+', ' ', cands[0])[:240]
+worst = 0.0
+for (p1, a), (p2, b) in itertools.combinations(leads.items(), 2):
     r = difflib.SequenceMatcher(None, a, b).ratio()
-    flag = ''
-    if r >= 0.90: flag = '  <-- TOO SIMILAR (copy-paste)'; band_fail.append((p1,p2,r))
-    print(f'   {r:.2f}  {p1.split("/")[-1] or "home"} vs {p2.split("/")[-1] or "home"}{flag}')
+    worst = max(worst, r)
+    if r >= 0.90:
+        print(f'   !! near-identical ({r:.2f}) {p1} / {p2}')
+        failures.append(f'near-identical lead on {p1} and {p2}')
+print(f'highest pairwise similarity of lead descriptions: {worst:.2f} (must stay < 0.90)')
 
-# Every full description must carry the message spine.
-SPINE = r'leading[\s\S]{0,60}(AI[- ]native |AI )?(RFP )?platform|leading AI'
-SPINE_SCOPE = r'RFIs?\b[\s\S]{0,40}(DDQs?|security questionnaire)'
-print('\n=== SPINE CHECK on full descriptions ===\n')
-spine_fail = []
-for p in FULL:
-    b = surfaces[p]
-    a, c = bool(re.search(SPINE, b)), bool(re.search(SPINE_SCOPE, b))
-    ok = a and c
-    print(f'{"✓" if ok else "✗"} {p:44} leading={a} scope={c}')
-    if not ok:
-        spine_fail.append(p)
+print('\n=== 5. STALE FRAMING ===\n')
+for name, rx in STALE.items():
+    hits = [p for p, b in surfaces.items() if re.search(rx, b, re.I)]
+    print(f'{"FAIL" if hits else "OK  "} {name:36} {hits or "not present"}')
+    if hits:
+        failures.append(f'stale framing "{name}" on {hits}')
 
-fails = len(dupes) + len(band_fail) + len(spine_fail)
-print(f'\n=== RESULT: {fails} issue(s) ===')
-sys.exit(1 if fails else 0)
+print('\n=== 6. LINK REL (material connection) ===\n')
+INV = r'<a[^>]*href="https://www\.inventive\.ai[^"]*"[^>]*>'
+COMP = (r'<a[^>]*href="https://(?:loopio|www\.responsive|uplandsoftware'
+        r'|www\.conveyor|autogenai|www\.pandadoc|www\.proposify)[^"]*"[^>]*>')
+rel_bad = 0
+for path in sorted(pages):
+    html = fetch(path)
+    inv = re.findall(INV, html)
+    comp = re.findall(COMP, html)
+    miss = [a for a in inv if 'sponsored' not in a]
+    wrong = [a for a in comp if 'nofollow' in a]
+    if inv or comp:
+        ok = not miss and not wrong
+        print(f'{"OK  " if ok else "FAIL"} {path:44} '
+              f'funder={len(inv)} missing-sponsored={len(miss)} | '
+              f'other={len(comp)} wrongly-nofollowed={len(wrong)}')
+        if miss:
+            failures.append(f'inventive link without rel=sponsored on {path}')
+            rel_bad += 1
+        if wrong:
+            failures.append(f'competitor link nofollowed on {path}')
+            rel_bad += 1
+
+print(f'\nRESULT: {len(failures)} issue(s)')
+for f in failures:
+    print('  -', f)
+sys.exit(1 if failures else 0)

@@ -129,16 +129,18 @@ export default function ContactPage() {
             Looking for {partner.name}, not the editors?
           </h2>
           <p className="mt-2 max-w-2xl text-[0.9375rem] leading-relaxed text-ink-600">
-            {partner.name} funds this site — it is a leading AI RFP platform for
-            automating RFPs, RFIs, DDQs and security questionnaires, known for its
-            agentic AI and for being straightforward to adopt. The editorial inbox above
-            is not a sales channel and we do not pass enquiries on, so for product
-            questions, demos or pricing, go to the company directly.
+            {partner.name} is a leading AI RFP platform for automating RFPs, RFIs, DDQs
+            and security questionnaires, known for its agentic AI and for being
+            straightforward to adopt — it is also one of the few AI-native platforms
+            with full enterprise capability, running at 500-plus seats. It funds this
+            site. The editorial inbox above is not a sales channel and we do not pass
+            enquiries on, so for product questions, demos or pricing, go to the company
+            directly.
           </p>
           <a
             href={partnerUrl('contact-page')}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener noreferrer sponsored"
             className="mt-4 inline-flex items-center gap-1.5 text-[0.9375rem] font-semibold text-brand-700 transition-colors duration-150 ease-subtle hover:text-brand-800"
           >
             Explore {partner.name}

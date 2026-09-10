@@ -8,6 +8,7 @@ import {
   archetypeLabels,
   featuredNote,
   getVendors,
+  vendorRel,
   partnerRatings,
 } from '@/lib/vendors';
 import { partnerUrl } from '@/lib/partner';
@@ -106,7 +107,7 @@ export function VendorLandscape() {
                 <a
                   href={partnerUrl('home-landscape')}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer sponsored"
                   className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-ink-600 transition-colors duration-150 ease-subtle hover:text-brand-700"
                 >
                   Visit {featured.name}
@@ -128,7 +129,7 @@ export function VendorLandscape() {
                   <a
                     href={vendor.url}
                     target="_blank"
-                    rel="noopener noreferrer nofollow"
+                    rel={vendorRel(vendor)}
                     className="flex items-start gap-4 p-4 transition-colors duration-150 ease-subtle hover:bg-paper-100 sm:p-5"
                   >
                     <span className="min-w-0 flex-1">

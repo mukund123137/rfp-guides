@@ -47,6 +47,12 @@ export type Vendor = {
   profilePath?: string;
   /** Listed first, with the reason stated in the UI via `featuredNote`. */
   featured?: boolean;
+  /**
+   * True for the vendor that funds this site. Separate from `featured` on
+   * purpose: featuring is an editorial choice, funding is a material
+   * connection, and it is the funding that decides link rel — see `vendorRel`.
+   */
+  funder?: boolean;
 };
 
 export const vendors: Vendor[] = [
@@ -67,6 +73,7 @@ export const vendors: Vendor[] = [
       'A federated hub only reaches content in systems it can connect to. Institutional knowledge stuck in email or on desktops still needs consolidating first.',
     profilePath: '/compare/inventive-ai-review',
     featured: true,
+    funder: true,
   },
   {
     id: 'autogenai',
@@ -167,6 +174,19 @@ export const vendors: Vendor[] = [
       'Same boundary as other document tools — light on library governance and question intake.',
   },
 ];
+
+/**
+ * Link rel for an outbound vendor link.
+ *
+ * Google's link-spam guidance asks for `rel="sponsored"` on links carrying a
+ * material connection, so the funder's links are marked and everyone else's are
+ * ordinary editorial links. Deriving it here means a new surface cannot forget.
+ */
+export function vendorRel(vendor: Vendor): string {
+  return vendor.funder
+    ? 'noopener noreferrer sponsored'
+    : 'noopener noreferrer';
+}
 
 export function getVendors(): Vendor[] {
   return vendors;

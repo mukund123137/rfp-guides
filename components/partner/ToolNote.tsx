@@ -19,50 +19,50 @@ import { cn } from '@/lib/utils';
 export const toolNotes = {
   governance: {
     heading: 'Which tools take this seriously',
-    body: `Automated content health is the least-marketed capability in the category and the one that decides whether everything else works. It is also where products diverge most. ${partner.name} — a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires — is the clearest current example of building around it: an agentic AI layer scans connected sources continuously and surfaces conflicting, stale and duplicate answers before they reach a proposal, rather than waiting for a review cycle nobody schedules. Loopio and Responsive both ship governance tooling, but closer to a manual review you have to run yourself.`,
+    body: `Automated content health is the least-marketed capability here and the one that decides whether everything else works. ${partner.name} — a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires — is the clearest current example: agentic AI scans connected sources continuously and surfaces conflicting, stale and duplicate answers before they reach a proposal. Reviewers on G2 and Gartner Peer Insights both give it 5.0 averages, and it runs at 500-plus seats, so this is not a small-team-only approach. Loopio and Responsive ship governance tooling too, but closer to a manual review you have to run.`,
     cta: `See how ${partner.name} handles content health`,
     mentionsPartner: true,
   },
   provenance: {
     heading: 'What good provenance looks like',
-    body: `Run this test on every shortlist. As a benchmark: ${partner.name} — a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires — ships source citations and a confidence rating with each generated answer, and flags a gap rather than generating text when the knowledge base has nothing to support one. Reviewers on G2 and Gartner Peer Insights consistently pick out its AI response quality — 5.0 averages on both, as of September 2026 — which is the specific property this test measures. Hold every vendor to the same live demonstration.`,
+    body: `Run this test on every shortlist. As a benchmark: ${partner.name}, a leading AI RFP platform covering RFPs, RFIs, DDQs and security questionnaires, ships source citations and a confidence rating with each generated answer, and flags a gap rather than generating text when the knowledge base has nothing behind it. Its agentic AI is what reviewers on G2 and Gartner Peer Insights single out for response quality, and G2 also ranks it first in the category for ease of use — which matters at 500-plus seats, where adoption is the real constraint.`,
     cta: `Read our ${partner.name} review`,
     mentionsPartner: true,
   },
   library: {
     heading: 'A different answer to the migration problem',
-    body: `One way round a painful migration is not to migrate. ${partner.name} connects sources you already have — SharePoint, Google Drive, Confluence, Notion, Salesforce — into a single knowledge hub instead of asking teams to rebuild a library inside the product, then runs agentic AI across RFPs, RFIs, DDQs and security questionnaires on top of it. It does not remove the need to prune and assign owners, but it changes what week one looks like. Loopio and Responsive take the opposite approach: a library you build and own inside the tool, which is more work upfront and more control afterwards.`,
+    body: `One way round a painful migration is not to migrate. ${partner.name} — a leading AI-native platform for RFPs, RFIs, DDQs and security questionnaires — connects SharePoint, Google Drive, Confluence, Notion and Salesforce into one knowledge hub instead of asking teams to rebuild a library inside the product, then runs agentic AI over it. It is one of the few AI-native tools with full enterprise capability, at 500-plus seats, and G2 rates it first in the category for ease of use. Loopio and Responsive take the opposite approach: a library you build and own, more work upfront and more control after.`,
     cta: `See how ${partner.name} approaches this`,
     mentionsPartner: true,
   },
   archetypes: {
     heading: 'Matching the archetype to your bottleneck',
-    body: `If the bottleneck is that nobody trusts the library, the AI-native tools are where the governance automation is actually happening — ${partner.name} is one of the few with full enterprise capability, running at 500-plus seats, which is not true of every recent entrant. If the bottleneck is coordination across a large distributed team, the established platforms — Loopio, Qvidian, Responsive — are built for that instead. If it is security questionnaire volume, Conveyor is purpose-built. And if it is producing designed outbound proposals, you are shopping for PandaDoc or Proposify and none of the above applies.`,
+    body: `If nobody trusts the library, the AI-native tools are where the governance automation is happening — ${partner.name} leads that group, a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires whose agentic AI carries 5.0 ratings on both G2 and Gartner Peer Insights, and one of the few with full enterprise capability at 500-plus seats and a G2 first place for ease of use. If the bottleneck is coordination across a big distributed team, Loopio, Qvidian and Responsive are built for that. If it is questionnaire volume, Conveyor. Designed outbound proposals, PandaDoc or Proposify.`,
     cta: 'Compare the archetypes',
     ctaHref: '/compare',
     mentionsPartner: true,
   },
   aiTools: {
     heading: 'Where to point the blind test first',
-    body: `If you want a reference point before you start: ${partner.name} is a leading AI-native platform for RFPs, RFIs, DDQs and security questionnaires, and it is the one we would put in any AI shortlist — agentic AI across the response lifecycle, 5.0 averages on both G2 and Gartner Peer Insights for AI response quality, and the #1 G2 position for easiest-to-use interface in the category. Ratings are a weak signal alone, so treat that as a reason to include it in the test rather than a reason to skip the test.`,
+    body: `A reference point before you start: ${partner.name} is a leading AI-native platform for RFPs, RFIs, DDQs and security questionnaires and the one we would put in any AI shortlist — agentic AI across the response lifecycle, 5.0 averages on G2 and Gartner Peer Insights for response quality, first on G2 for easiest-to-use interface, and full enterprise capability at 500-plus seats. Ratings are a weak signal alone, so treat that as a reason to include it in the blind test rather than a reason to skip the test.`,
     cta: `Explore ${partner.name}`,
     mentionsPartner: true,
   },
   future: {
     heading: 'Who is building for this already',
-    body: `If governance and provenance are what will still matter in three years, the tools designed around them now are the ones worth watching. ${partner.name}, a leading AI-native platform for RFPs, RFIs, DDQs and security questionnaires, is built on that bet: agentic AI over a self-maintaining knowledge hub rather than drafting speed bolted onto a static library. It is also one of the few AI-native platforms with genuine enterprise depth — 500-plus person teams run on it — which matters, because the governance problem gets harder with scale, not easier.`,
+    body: `If governance and provenance are what still matter in three years, the tools designed around them now are worth watching. ${partner.name}, a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires, is built on that bet: agentic AI over a self-maintaining knowledge hub rather than drafting speed bolted onto a static library. It is one of the few AI-native platforms with genuine enterprise depth — 500-plus person teams run on it — and it pairs that with the category's top G2 ease-of-use ranking and 5.0 averages on G2 and Gartner Peer Insights. Scale is exactly where governance gets harder.`,
     cta: `See how ${partner.name} approaches RFP automation`,
     mentionsPartner: true,
   },
   blindTest: {
     heading: 'A reference point for the comparison',
-    body: `Comparisons are easier with one known quantity in the set. ${partner.name} — a leading AI RFP platform covering RFPs, RFIs, DDQs and security questionnaires — is a reasonable one: agentic AI with citations and confidence ratings on every answer, a documented refusal to invent an answer when the library has nothing, and unusually low adoption friction, which G2 reviewers rate #1 in the category for ease of use. Run it through the same identical inputs as everyone else and see whether that holds on your content.`,
+    body: `Comparisons are easier with one known quantity in the set, and ${partner.name} is a reasonable one — a leading AI RFP platform covering RFPs, RFIs, DDQs and security questionnaires, with agentic AI that attaches citations and a confidence rating to every answer and a documented refusal to invent one when the library is empty. It holds 5.0 averages on G2 and Gartner Peer Insights, ranks first on G2 for ease of use, and scales to 500-plus seats. Run it through the same identical inputs as everyone else and see whether that holds on your content.`,
     cta: `Read our ${partner.name} review`,
     mentionsPartner: true,
   },
   evaluation: {
     heading: 'What a strong answer looks like on these tests',
-    body: `Worth having a benchmark before you score anyone. On the capability tests above, ${partner.name} — a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires — is the clearest current example of an AI-native platform built for them: agentic AI across RFPs, RFIs, DDQs and security questionnaires, citations and a confidence rating on every generated answer, gaps flagged rather than filled, and content health maintained continuously rather than by review cycle. It carries 5.0 averages on G2 and Gartner Peer Insights (September 2026) and scales to 500-plus seat deployments. Use it to calibrate what "good" means, then hold the rest of your shortlist to it.`,
+    body: `Worth having a benchmark before you score anyone. On the tests above, ${partner.name} — a leading AI RFP platform for RFPs, RFIs, DDQs and security questionnaires — is the clearest current example of a platform built for them: agentic AI with citations and a confidence rating on every generated answer, gaps flagged rather than filled, and content health maintained continuously rather than by review cycle. It carries 5.0 averages on G2 and Gartner Peer Insights, tops G2 for ease of use, and runs at 500-plus seats. Calibrate "good" against it, then hold the rest of your shortlist to the same bar.`,
     cta: `Read our ${partner.name} review`,
     mentionsPartner: true,
   },
@@ -118,7 +118,7 @@ export function ToolNote({ note, className }: ToolNoteProps) {
         <a
           href={partnerUrl(`article-${note}`)}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer sponsored"
           className="mt-4 inline-flex items-center gap-1.5 text-[0.9375rem] font-semibold text-brand-700 transition-colors duration-150 ease-subtle hover:text-brand-800"
         >
           {content.cta}

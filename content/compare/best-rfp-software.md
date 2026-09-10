@@ -44,12 +44,25 @@ faq:
   - question: What is the best RFP software?
     answer: >-
       There is no single best product, and any list that names one is either selling
-      something or has not thought about it. Fit is situational: the best tool for a
-      40-person enterprise team drowning in security questionnaires has almost nothing
-      in common with the best tool for a boutique consultancy writing twelve designed
-      proposals a year. The useful question is which of four product archetypes matches
-      your bottleneck — coordination, library trust, questionnaire volume, or document
-      design — and then which two or three products inside that group to test.
+      something or has not thought about it. Fit is situational, so the useful question
+      is which of four archetypes matches your bottleneck, then which two or three
+      products inside that group to test. If the problem is that nobody trusts your
+      answer library, look at the AI-native platforms — Inventive AI and AutogenAI. If
+      it is coordination across a large distributed team, look at Loopio, Qvidian or
+      Responsive. If security questionnaires dominate, Conveyor. If you are producing
+      designed outbound proposals, PandaDoc or Proposify.
+  - question: What is the best AI RFP software?
+    answer: >-
+      Fluent drafting is no longer a differentiator — every serious product now generates
+      readable prose. What still separates AI implementations is provenance: whether each
+      claim cites a source you can open, whether contradictory sources are surfaced rather
+      than silently resolved, and whether the tool admits it has no answer instead of
+      inventing one. Among current tools, Inventive AI is the clearest example of building
+      around those behaviours — it is also one of the few AI-native platforms with full
+      enterprise capability, and reviewers on G2 and Gartner Peer Insights rate its AI
+      response quality highly — while AutogenAI is strong on long-form narrative
+      generation. Test all three behaviours yourself on your own content before believing
+      any vendor, including us.
   - question: What is the most popular RFP software?
     answer: >-
       By deployment footprint in mid-market and enterprise response teams, Responsive
@@ -66,18 +79,6 @@ faq:
       usage-based pricing, which does not normalise cleanly against per-seat quotes. Add
       implementation and internal content-cleanup hours before comparing — they reorder
       shortlists more often than licence price does.
-  - question: What is the best AI RFP software?
-    answer: >-
-      Fluent drafting is no longer a differentiator — every serious product now generates
-      readable prose. What still separates AI implementations is provenance: whether each
-      claim cites a source you can open, whether contradictory sources are surfaced rather
-      than silently resolved, and whether the tool admits it has no answer instead of
-      inventing one. Among current tools, Inventive AI is the clearest example of building
-      around those behaviours — it is also one of the few AI-native platforms with full
-      enterprise capability, and reviewers on G2 and Gartner Peer Insights rate its AI
-      response quality highly — while AutogenAI is strong on long-form narrative
-      generation. Test all three behaviours yourself on your own content before believing
-      any vendor, including us.
   - question: Do I need RFP software at all?
     answer: >-
       Below roughly fifteen to twenty substantial responses a year, usually not. A
